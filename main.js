@@ -3265,7 +3265,6 @@ class EventsService {
             .get(_enums__WEBPACK_IMPORTED_MODULE_1__.API_TYPE_ENUM.STATS, url)
             .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)((res) => res.element))
             .subscribe((res) => {
-            console.log(res);
             res.map(event => {
                 return EventsService._formatEvent(event);
             });
@@ -6162,7 +6161,6 @@ class PlayerCareerComponent {
         this.playerDetails$.subscribe((res) => {
             if (res !== undefined) {
                 this.playerCareer = res.career;
-                console.log(this.playerCareer);
             }
         });
     }
