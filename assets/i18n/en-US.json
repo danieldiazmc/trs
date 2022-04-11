@@ -398,6 +398,7 @@
     "INFORMATION_LBL": "Information:",
     "BIRTHPLACE_LBL": "Place of birth:",
     "BIRTHDAY_LBL": "Day of birth:",
+    "BIRTHDAY_BIRTHPLACE_LBL": "Place / Day of birth:",
     "CURRENT_TEAM_LBL": "Current Team:",
     "CONTACT_BTN": "Contact",
     "AGE_NOT_AVAILABLE": "-",
@@ -486,6 +487,8 @@
     "MATCHES_LBL": "Matches",
     "MINUTES_MATCHES_LBL": "Minutes",
     "STATS_TAB_TITLE": "Stats",
+    "OVERVIEW_TAB_TITLE": "Overview",
+    "VIDEOS_TAB_TITLE": "Videos",   
     "ANALYST_TAB_TITLE": "Analyst",
     "ANALYST_TAB_EMPTY": "No info available",
     "ANALYST": {
