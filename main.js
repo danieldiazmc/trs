@@ -3255,6 +3255,13 @@ class EventsService {
             this._messagingService.error('GENERAL.ERRORS.DEFAULT.TITLE', 'GENERAL.ERRORS.DEFAULT.MESSAGE');
         });
     }
+    loadPlayerEventsAll(playerId, page) {
+        const url = `events/player/${playerId}?page=${page}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_1__.API_TYPE_ENUM.STATS, url);
+    }
+    getFormatEvent(event) {
+        return EventsService._formatEvent(event);
+    }
     _getEvents(url) {
         this._apiService
             .get(_enums__WEBPACK_IMPORTED_MODULE_1__.API_TYPE_ENUM.STATS, url)
