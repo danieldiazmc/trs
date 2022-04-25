@@ -3960,6 +3960,7 @@ class MatchDetailComponent {
         this.matchEvents$ = this._eventsService.events$;
     }
     ngOnInit() {
+        console.log(this._fixtureService.getMockAdvanceStats());
         this._route.params.subscribe((params) => {
             if (params.matchId) {
                 this._fixtureService.loadMatchesInfo([params.matchId], true);
