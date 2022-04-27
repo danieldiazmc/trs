@@ -5918,6 +5918,7 @@ class PlayerAnalystStatsComponent {
     ngOnInit() {
         this._subscriptions.push(this.playerStats$.subscribe(playerStats => {
             if (playerStats) {
+                console.log(playerStats);
                 let analystStats = playerStats.analystData;
                 if (!analystStats) {
                     analystStats = _aft_core__WEBPACK_IMPORTED_MODULE_0__.EntitiesUtils.newAnalystStat();
