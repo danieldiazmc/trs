@@ -420,6 +420,7 @@
     "CAREER_TAB": "Career",
     "TRANSFERS_TAB": "Transfers",
     "CAREER_TABLE": {
+      "DATE_LBL":"Date",
       "LEAGUE_LBL": "League",
       "TEAM_LBL": "Team",
       "MINUTES_LBL": "Minutes Played",
@@ -539,7 +540,15 @@
       }
     }
   },
-  "PLAYER_WYSCOUT_STATS_DETAIL": {
+  "PLAYER_WYSCOUT_STATS_DETAIL": { 
+    "TOTALS":"Totals",
+    "MATCHS":"Matchs",
+    "GOALS": "Goals",
+    "SAVES": "Saves",
+    "APPEARANCES": "Appearances",
+    "WINS":"Wins",
+    "LOSSES":"Losses",
+    "FILTERS":"Filters",
     "GENERALSTATICS": "General",
     "OFFENSIVESTATICS": "Offensive",
     "PRECISION": "Precision",

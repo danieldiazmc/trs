@@ -70,29 +70,26 @@ class PlayerAnalystComponent {
         this.playerStats$ = this._playerService.playerStats$;
     }
     ngOnInit() {
-        // this._subscriptions.push(
-        //   this._route.params.subscribe((params: Params) => {
-        //     if (params.secondTab) {
-        //       this.selectedTab = params.secondTab ? 1 : 0;
-        //     }
-        //     if (params.playerId && !this.playerDetails$.value) {
-        //       this._playerService.getPlayerDetails(params.playerId);
-        //     }
-        //     if (params.playerId && !this.playerStats$.value) {
-        //       this._playerService.getPlayerStats(params.playerId);
-        //     }
-        //   })
-        // );
-        // this._subscriptions.push(
-        //   this.playerDetails$.subscribe(player => {
-        //     if (player) {
-        //       const activeSeason = player.currentTeam?.league?.seasons.find(s => s.active);
-        //       if (activeSeason) {
-        //         this._playerService.getPlayerExtendedStats(player.id, activeSeason.id);
-        //       }
-        //     }
-        //   })
-        // );
+        this._subscriptions.push(this._route.params.subscribe((params) => {
+            if (params.secondTab) {
+                this.selectedTab = params.secondTab ? 1 : 0;
+            }
+            if (params.playerId && !this.playerDetails$.value) {
+                this._playerService.getPlayerDetails(params.playerId);
+            }
+            if (params.playerId && !this.playerStats$.value) {
+                this._playerService.getPlayerStats(params.playerId);
+            }
+        }));
+        this._subscriptions.push(this.playerDetails$.subscribe(player => {
+            var _a, _b;
+            if (player) {
+                const activeSeason = (_b = (_a = player.currentTeam) === null || _a === void 0 ? void 0 : _a.league) === null || _b === void 0 ? void 0 : _b.seasons.find(s => s.active);
+                if (activeSeason) {
+                    this._playerService.getPlayerExtendedStats(player.id, activeSeason.id);
+                }
+            }
+        }));
     }
     ngOnDestroy() {
         this._subscriptions.forEach(s => s.unsubscribe());

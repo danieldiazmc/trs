@@ -424,6 +424,7 @@
     "CAREER_TAB": "Carrera",
     "TRANSFERS_TAB": "Transferencias",
     "CAREER_TABLE": {
+      "DATE_LBL":"Fecha",
       "LEAGUE_LBL": "Liga",
       "TEAM_LBL": "Equipo",
       "MINUTES_LBL": "Minutos Jugados",
@@ -545,6 +546,14 @@
     }
   },
   "PLAYER_WYSCOUT_STATS_DETAIL": {
+    "TOTALS":"Totales",
+    "MATCHS":"Partidos",
+    "GOALS": "Goles",
+    "SAVES": "Salvadas",
+    "APPEARANCES": "Apariciones",
+    "WINS":"Victorias",
+    "LOSSES":"Perdidas",
+    "FILTERS":"Filtros",
     "GENERALSTATICS": "Generales",
     "OFFENSIVESTATICS": "Ofensivas",
     "PRECISION": "Precisión",
