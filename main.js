@@ -3571,7 +3571,6 @@ class LeaguesService {
             //TO-DO Dato de Temporada HARDCODE
             const seasonId = 187891;
             url += `&seasonId=${seasonId}`;
-            console.log(url);
             this._apiService
                 .get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url)
                 .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)((res) => res.element))
@@ -6979,13 +6978,6 @@ class PlayerStatSummaryComponent {
         this.showPlayerResume = true;
         this.playerDetails$ = this._playerService.playerDetails$;
         this.playerStats$ = this._playerService.playerStats$;
-        this.test();
-    }
-    test() {
-        var _a;
-        (_a = this.playerDetails$) === null || _a === void 0 ? void 0 : _a.subscribe(res => {
-            console.log(res);
-        });
     }
     goToTeam(player) {
         var _a;

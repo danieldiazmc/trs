@@ -2818,6 +2818,9 @@ class FixtureDetailComponent {
         this.isBackofficeProfile = this._appConfigService.appConfig.platform === _aft_core__WEBPACK_IMPORTED_MODULE_0__.PLATFORM_ENUM.BACKOFFICE;
     }
     ngOnInit() {
+        this.loadSubscriptions();
+    }
+    loadSubscriptions() {
         if (this.selectedLeague$) {
             this._subscriptions.push(this.selectedLeague$.subscribe(league => {
                 if (league) {
@@ -2909,7 +2912,9 @@ class FixtureDetailComponent {
     }
     goToTeam(team) {
         if ((team === null || team === void 0 ? void 0 : team.id) && !this.isBackofficeProfile) {
-            this._router.navigate((0,_sw_ui_components_modules_fixture_fixture_routes__WEBPACK_IMPORTED_MODULE_1__.generateFullFixtureModuleRoute)(_sw_ui_components_modules_fixture_fixture_routes__WEBPACK_IMPORTED_MODULE_1__.FIXTURE_MODULE_ROUTES.TEAM_DETAILS, team.id));
+            this.teamId = team.id;
+            this.loadSubscriptions();
+            this._router.navigate((0,_sw_ui_components_modules_fixture_fixture_routes__WEBPACK_IMPORTED_MODULE_1__.generateFullFixtureModuleRoute)(_sw_ui_components_modules_fixture_fixture_routes__WEBPACK_IMPORTED_MODULE_1__.FIXTURE_MODULE_ROUTES.TEAM_DETAILS, this.teamId));
         }
     }
     goToMatchDetails(match) {
