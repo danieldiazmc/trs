@@ -584,6 +584,7 @@
     "NO_SELECTION_TITLE": "Seleccione una liga para ver sus partidos.",
     "NO_SELECTION_SUBTITLE": "Utilize el selector que se encuentra arriba a la derecha.",
     "NO_DATA": "No hay información disponible sobre esta fecha",
+    "NO_DATA_GENERIC": "No hay información disponible",
     "NO_LEAGUE_DATA": "No hay información disponible sobre esta liga",
     "WIDGET": {
       "TITLE": "Próximos partidos",

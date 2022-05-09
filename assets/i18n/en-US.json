@@ -579,6 +579,7 @@
     "NO_SELECTION_TITLE": "Select a league to see the matches.",
     "NO_SELECTION_SUBTITLE": "Use the selector located in the top right",
     "NO_DATA": "No information available of this round",
+    "NO_DATA_GENERIC": "No data available",
     "NO_LEAGUE_DATA": "No information available for this league",
     "WIDGET": {
       "TITLE": "Upcoming matches",

@@ -3353,20 +3353,17 @@ EventsService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_6__[
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var _mocks_advance_stats_json__WEBPACK_IMPORTED_MODULE_2___namespace_cache;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FixtureService": () => (/* binding */ FixtureService)
 /* harmony export */ });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ 1119);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 8377);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 1119);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 8377);
 /* harmony import */ var _enums__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../enums */ 7701);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils */ 7244);
-/* harmony import */ var _mocks_advance_stats_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mocks/advance-stats.json */ 5159);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 4001);
-/* harmony import */ var _system_api_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system/api.service */ 7505);
-/* harmony import */ var _ui_messaging_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ui/messaging.service */ 9042);
-
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 4001);
+/* harmony import */ var _system_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../system/api.service */ 7505);
+/* harmony import */ var _ui_messaging_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/messaging.service */ 9042);
 
 
 
@@ -3378,9 +3375,9 @@ class FixtureService {
     constructor(_apiService, _messagingService) {
         this._apiService = _apiService;
         this._messagingService = _messagingService;
-        this.fixture$ = new rxjs__WEBPACK_IMPORTED_MODULE_5__.BehaviorSubject(undefined);
-        this.seasonDates$ = new rxjs__WEBPACK_IMPORTED_MODULE_5__.BehaviorSubject([]);
-        this.matches$ = new rxjs__WEBPACK_IMPORTED_MODULE_5__.BehaviorSubject([]);
+        this.fixture$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject(undefined);
+        this.seasonDates$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
+        this.matches$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__.BehaviorSubject([]);
         this._isDatesLoading = false;
         this._isFixtureLoading = false;
         this._isMatchesLoading = false;
@@ -3434,7 +3431,7 @@ class FixtureService {
             const url = `matches?ids=${matchesIdList.toString()}&reduced=${reduced}`;
             this._apiService
                 .get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url)
-                .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_6__.map)((res) => res.element))
+                .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)((res) => res.element))
                 .subscribe((res) => {
                 this.matches$.next(res);
                 this._isMatchesLoading = false;
@@ -3444,9 +3441,6 @@ class FixtureService {
                 this._isMatchesLoading = false;
             });
         }
-    }
-    getMockAdvanceStats() {
-        return /*#__PURE__*/ (_mocks_advance_stats_json__WEBPACK_IMPORTED_MODULE_2___namespace_cache || (_mocks_advance_stats_json__WEBPACK_IMPORTED_MODULE_2___namespace_cache = __webpack_require__.t(_mocks_advance_stats_json__WEBPACK_IMPORTED_MODULE_2__, 2)));
     }
     generateDate(date) {
         return {
@@ -3482,9 +3476,23 @@ class FixtureService {
         this.fixture$.next(undefined);
         this.seasonDates$.next([]);
     }
+    getFixtureInfoByTeam(seasonId, teamId) {
+        let url = `seasons/${seasonId}/fixture`;
+        const params = { teamId };
+        url += `?${_utils__WEBPACK_IMPORTED_MODULE_1__.ApiUtils.objectParamSerializer(params)}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
+    getMatcheInfo(matchesId) {
+        const url = `matches?ids=${matchesId.toString()}&reduced=${true}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
+    getMatcheInfoAll(matchesIdList, reduced = false) {
+        const url = `matches?ids=${matchesIdList.toString()}&reduced=${reduced}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
 }
-FixtureService.ɵfac = function FixtureService_Factory(t) { return new (t || FixtureService)(_angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_system_api_service__WEBPACK_IMPORTED_MODULE_3__.ApiService), _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵinject"](_ui_messaging_service__WEBPACK_IMPORTED_MODULE_4__.MessagingService)); };
-FixtureService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjectable"]({ token: FixtureService, factory: FixtureService.ɵfac, providedIn: 'root' });
+FixtureService.ɵfac = function FixtureService_Factory(t) { return new (t || FixtureService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_system_api_service__WEBPACK_IMPORTED_MODULE_2__.ApiService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_ui_messaging_service__WEBPACK_IMPORTED_MODULE_3__.MessagingService)); };
+FixtureService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjectable"]({ token: FixtureService, factory: FixtureService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -3575,7 +3583,6 @@ class LeaguesService {
                 .get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url)
                 .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)((res) => res.element))
                 .subscribe((res) => {
-                console.log(res);
                 this.ranking$.next(res);
             }, err => {
                 console.error('Unable to fetch players ranking', err);
@@ -3590,6 +3597,10 @@ class LeaguesService {
     }
     findLeagueById(leagueId) {
         return this.leagues$.value.find(l => l.id === +leagueId);
+    }
+    getAllLeagues() {
+        const url = `leagues`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
     }
 }
 LeaguesService.ɵfac = function LeaguesService_Factory(t) { return new (t || LeaguesService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_system_api_service__WEBPACK_IMPORTED_MODULE_1__.ApiService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_ui_messaging_service__WEBPACK_IMPORTED_MODULE_2__.MessagingService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_sync_status_service__WEBPACK_IMPORTED_MODULE_3__.SyncStatusService)); };
@@ -3814,6 +3825,14 @@ class PlayerService {
             this._messagingService.error('PLAYER.CONTACT.TOAST.ERROR.TITLE', 'PLAYER.CONTACT.TOAST.ERROR.SUBTITLE');
         });
     }
+    getPlayerDetailsAlternative(playerId) {
+        let url = `players/details/${playerId}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
+    getPlayerExtendedStatsAlternative(playerId, seasonId) {
+        const url = `playerstats/${playerId}/matchstats/${seasonId}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.STATS, url);
+    }
 }
 PlayerService.ɵfac = function PlayerService_Factory(t) { return new (t || PlayerService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_system_api_service__WEBPACK_IMPORTED_MODULE_1__.ApiService), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_ui_messaging_service__WEBPACK_IMPORTED_MODULE_2__.MessagingService)); };
 PlayerService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({ token: PlayerService, factory: PlayerService.ɵfac, providedIn: 'root' });
@@ -3985,6 +4004,19 @@ class TeamsPlayersService {
     doSyncTeamsAndPlayers() {
         var _a;
         return this._syncStatusService.triggerEntitySyncStatus(_enums__WEBPACK_IMPORTED_MODULE_0__.STATUS_ENTITIES_ENUM.TEAMSANDPLAYERS, (_a = this.selectedLeague$.value) === null || _a === void 0 ? void 0 : _a.id);
+    }
+    getAllLeagues() {
+        const url = `leagues`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
+    getTeamInfoById(teamId) {
+        const url = `teams/${teamId}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
+    }
+    ;
+    getPlayersByTeamId(teamId) {
+        const url = `players/teams?ids=${teamId}`;
+        return this._apiService.get(_enums__WEBPACK_IMPORTED_MODULE_0__.API_TYPE_ENUM.LEAGUES, url);
     }
 }
 TeamsPlayersService.ɵfac = function TeamsPlayersService_Factory(t) { return new (t || TeamsPlayersService)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_system_api_service__WEBPACK_IMPORTED_MODULE_1__.ApiService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_leagues_service__WEBPACK_IMPORTED_MODULE_2__.LeaguesService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_ui_messaging_service__WEBPACK_IMPORTED_MODULE_3__.MessagingService), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_sync_status_service__WEBPACK_IMPORTED_MODULE_4__.SyncStatusService)); };
@@ -6707,9 +6739,6 @@ class PlayerRankingComponent {
         this.ranking$ = this._leagueService.ranking$;
     }
     ngOnInit() {
-        this.ranking$.subscribe(res => {
-            console.log(res);
-        });
         const localStorageVal = localStorage.getItem(this._storageKey);
         if (localStorageVal) {
             const role = this.roles.find(r => r.id === +localStorageVal);
@@ -7323,15 +7352,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PlayerWyscoutStatsComponent": () => (/* binding */ PlayerWyscoutStatsComponent)
 /* harmony export */ });
 /* harmony import */ var _aft_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @aft-core */ 91);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 8377);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 4001);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 8346);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 9686);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 8267);
-/* harmony import */ var primeng_selectbutton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! primeng/selectbutton */ 2798);
-/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! primeng/dropdown */ 5596);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/api */ 5132);
-/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primeng/table */ 3750);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 3252);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 8346);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ 9686);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 8267);
+/* harmony import */ var primeng_selectbutton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primeng/selectbutton */ 2798);
+/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primeng/dropdown */ 5596);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! primeng/api */ 5132);
+/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primeng/table */ 3750);
 /* harmony import */ var _pipes_team_flag_pipe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../pipes/team-flag.pipe */ 6173);
+
+
 
 
 
@@ -7422,41 +7455,41 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_34_Te
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", ctx_r6.listDataPanels);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_3_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](1, "translate");
 } if (rf & 2) {
-    const item_r23 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, "PLAYER_WYSCOUT_STATS_DETAIL." + item_r23.toUpperCase()), " ");
+    const item_r21 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, "PLAYER_WYSCOUT_STATS_DETAIL." + item_r21.toUpperCase()), " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_4_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](1, "translate");
 } if (rf & 2) {
-    const item_r24 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, "PLAYER_WYSCOUT_STATS_DETAIL." + item_r24.toUpperCase()), " ");
+    const item_r22 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, "PLAYER_WYSCOUT_STATS_DETAIL." + item_r22.toUpperCase()), " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_7_th_1_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_7_th_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "th", 24);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](2, "translate");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const column_r27 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵattribute"]("colspan", column_r27 === "matches" ? 3 : 1);
+    const column_r25 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵattribute"]("colspan", column_r25 === "matches" ? 3 : 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](2, 2, "STATS_WYSCOUT." + column_r27.toUpperCase()), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](2, 2, "STATS_WYSCOUT." + column_r25.toUpperCase()), " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_7_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "tr");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_7_th_1_Template, 3, 4, "th", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_7_th_1_Template, 3, 4, "th", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const columns_r25 = ctx.$implicit;
+    const columns_r23 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", columns_r25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", columns_r23);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_1_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 26);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "span", 27);
@@ -7466,11 +7499,11 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const detail_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
+    const detail_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind2"](4, 1, detail_r30.dateutc, "dd/MM/YYYY"), " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind2"](4, 1, detail_r28.dateutc, "dd/MM/YYYY"), " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_2_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 26);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 28);
@@ -7494,19 +7527,19 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const detail_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
+    const detail_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpropertyInterpolate"]("src", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](5, 6, detail_r30.homeTeam.imageDataURL), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsanitizeUrl"]);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("alt", detail_r30.homeTeam.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpropertyInterpolate"]("src", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](5, 6, detail_r28.homeTeam.imageDataURL), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("alt", detail_r28.homeTeam.name);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r30.homeTeam.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r28.homeTeam.name);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpropertyInterpolate"]("src", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](11, 8, detail_r30.awayTeam.imageDataURL), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsanitizeUrl"]);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("alt", detail_r30.awayTeam.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpropertyInterpolate"]("src", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](11, 8, detail_r28.awayTeam.imageDataURL), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵsanitizeUrl"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("alt", detail_r28.awayTeam.name);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r30.awayTeam.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r28.awayTeam.name);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_3_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 26);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div", 33);
@@ -7522,101 +7555,91 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const detail_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
+    const detail_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r30.homeTeam.score);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r28.homeTeam.score);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r30.awayTeam.score);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate"](detail_r28.awayTeam.score);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_4_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const detail_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
+    const detail_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]().$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", detail_r30, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", detail_r28, " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_1_Template, 5, 4, "td", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](2, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_2_Template, 14, 10, "td", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](3, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_3_Template, 8, 2, "td", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](4, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_td_4_Template, 3, 1, "td", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_1_Template, 5, 4, "td", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](2, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_2_Template, 14, 10, "td", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](3, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_3_Template, 8, 2, "td", 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](4, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_td_4_Template, 3, 1, "td", 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
-    const index_r31 = ctx.index;
+    const index_r29 = ctx.index;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r31 === 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r29 === 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r31 === 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r29 === 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r31 === 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r29 === 0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r31 !== 0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", index_r29 !== 0);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "tr");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_ng_container_1_Template, 5, 4, "ng-container", 25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_ng_container_1_Template, 5, 4, "ng-container", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const matchDetail_r28 = ctx.$implicit;
+    const matchDetail_r26 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", matchDetail_r28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngForOf", matchDetail_r26);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "p-dropdown", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](3, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_3_Template, 2, 3, "ng-template", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](4, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_4_Template, 2, 3, "ng-template", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](3, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_3_Template, 2, 3, "ng-template", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](4, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_4_Template, 2, 3, "ng-template", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](5, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](6, "p-table", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](7, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_7_Template, 2, 1, "ng-template", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](8, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_ng_template_8_Template, 2, 1, "ng-template", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](7, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_7_Template, 2, 1, "ng-template", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](8, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_ng_template_8_Template, 2, 1, "ng-template", 22);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](5);
+    const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formControl", ctx_r16.selectedCategory)("options", ctx_r16.buttonOptions);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formControl", ctx_r14.selectedCategory)("options", ctx_r14.buttonOptions);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("columns", ctx_r16.tableColumns)("value", ctx_r16.tableValues);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("columns", ctx_r14.tableColumns)("value", ctx_r14.tableValues);
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_ng_template_2_Template(rf, ctx) { if (rf & 1) {
+function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_template_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](1, "translate");
 } if (rf & 2) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, "PLAYER_WYSCOUT_STATS_DETAIL.NO_DATA"), " ");
 } }
-function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_div_1_Template, 9, 4, "div", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](2, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_ng_template_2_Template, 2, 3, "ng-template", null, 15, _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplateRefExtractor"]);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerEnd"]();
-} if (rf & 2) {
-    const matches_r15 = ctx.ngIf;
-    const _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", matches_r15.length)("ngIfElse", _r17);
-} }
 function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "section", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_container_1_Template, 4, 2, "ng-container", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](2, "async");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_div_1_Template, 9, 4, "div", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](2, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_ng_template_2_Template, 2, 3, "ng-template", null, 15, _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplateRefExtractor"]);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
+    const _r15 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵreference"](3);
     const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](2, 1, ctx_r7.matches$));
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx_r7.currentMatchesList.length)("ngIfElse", _r15);
 } }
 function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template(rf, ctx) { if (rf & 1) {
-    const _r41 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
+    const _r39 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerStart"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "section", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "div");
@@ -7626,7 +7649,7 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template(rf, 
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](6, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "p-selectButton", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template_p_selectButton_ngModelChange_7_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r41); const ctx_r40 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](2); return ctx_r40.selectStatsOption = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template_p_selectButton_ngModelChange_7_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r39); const ctx_r38 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](2); return ctx_r38.selectStatsOption = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -7637,7 +7660,7 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template(rf, 
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](12, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](13, "p-dropdown", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template_p_dropdown_ngModelChange_13_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r41); const ctx_r42 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](2); return ctx_r42.selectSeason = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("ngModelChange", function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template_p_dropdown_ngModelChange_13_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r39); const ctx_r40 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](2); return ctx_r40.selectSeason = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -7672,7 +7695,7 @@ function PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_Template(rf, 
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](34, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_34_Template, 2, 1, "section", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](35, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_Template, 3, 3, "section", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](35, PlayerWyscoutStatsComponent_ng_container_0_ng_container_1_section_35_Template, 4, 2, "section", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
     const playerStats_r3 = ctx.ngIf;
@@ -7718,7 +7741,9 @@ function PlayerWyscoutStatsComponent_ng_container_0_Template(rf, ctx) { if (rf &
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](2, 1, ctx_r0.playerStats$));
 } }
 class PlayerWyscoutStatsComponent {
-    constructor(_leaguesService, _playerService, _fb, _fixtureService, _translateService) {
+    constructor(_route, _router, _leaguesService, _playerService, _fb, _fixtureService, _translateService) {
+        this._route = _route;
+        this._router = _router;
         this._leaguesService = _leaguesService;
         this._playerService = _playerService;
         this._fb = _fb;
@@ -7747,51 +7772,83 @@ class PlayerWyscoutStatsComponent {
         this.selectedCategory = this._fb.control({});
     }
     ngOnInit() {
+        this.getParams();
         this.selectStatsOptions = [
             { label: this._translateService.instant('PLAYER_WYSCOUT_STATS_DETAIL.TOTALS'), value: 'totals' },
             { label: this._translateService.instant('PLAYER_WYSCOUT_STATS_DETAIL.MATCHS'), value: 'matches' }
         ];
-        // Takes care of the variables seen on screen
-        // Triggered when player Details finishes loading for the first time
-        this._subscriptions.push(this.selectedCategory.valueChanges.subscribe(category => {
-            if (category) {
-                this._buildTableData();
+    }
+    getParams() {
+        this._route.params.subscribe((params) => {
+            if (params.playerId) {
+                this.currentPlayerId = params.playerId;
+                this.getPlayerDetails();
             }
-        }));
-        // When the extended stats are loaded, load the match list
-        this._subscriptions.push(this.playerStatsExtended$.subscribe(playerStats => {
-            if (playerStats) {
-                this._fixtureService.loadMatchesInfo(playerStats.map(pStat => pStat.matchId));
+            else {
+                this._router.navigate(_aft_core__WEBPACK_IMPORTED_MODULE_0__.APP_ROUTES.PRIVATE);
             }
-        }));
-        this._subscriptions.push(this.playerDetails$.subscribe(player => {
-            var _a, _b, _c, _d;
-            if (player) {
-                //NUEVO
-                this.loadDataPanels();
-                // Initializes buttons depending on role id of the player
-                this._initializeButtonOptions(player);
-                if (((_a = player.currentTeam) === null || _a === void 0 ? void 0 : _a.league) === null) {
-                    this.leagues$.subscribe(res => {
-                        if (player.currentTeam) {
-                            player.currentTeam.league = res.find(league => { var _a; return league.id === ((_a = player.currentTeam) === null || _a === void 0 ? void 0 : _a.leagueId); });
-                        }
-                    });
+        });
+    }
+    getPlayerDetails() {
+        if (this.currentPlayerId) {
+            this._playerService.getPlayerDetailsAlternative(this.currentPlayerId)
+                .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((res) => res.element))
+                .subscribe((res) => {
+                this.currentPlayerInfo = res;
+                this.getLeagues();
+            }, err => {
+                console.error('Unable to fetch player detail', err);
+            });
+        }
+    }
+    getLeagues() {
+        this._leaguesService.getAllLeagues()
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((res) => res.element))
+            .subscribe((res) => {
+            var _a;
+            this.allLeagues = res;
+            const teamLeague = (_a = this.allLeagues) === null || _a === void 0 ? void 0 : _a.find(l => { var _a, _b; return l.id === ((_b = (_a = this.currentPlayerInfo) === null || _a === void 0 ? void 0 : _a.currentTeam) === null || _b === void 0 ? void 0 : _b.leagueId); });
+            if (teamLeague) {
+                this.currentLeague = teamLeague;
+                this.getPlayerExtendStats();
+            }
+        }, err => {
+            console.error('Unable to fetch all leagues', err);
+        });
+    }
+    getPlayerExtendStats() {
+        var _a, _b;
+        if ((_a = this.currentLeague) === null || _a === void 0 ? void 0 : _a.seasons) {
+            const activeSeason = (_b = this.currentLeague) === null || _b === void 0 ? void 0 : _b.seasons.find(x => x.active);
+            if (activeSeason && this.currentPlayerInfo) {
+                this._playerService.getPlayerExtendedStatsAlternative(this.currentPlayerInfo.id, activeSeason.id)
+                    .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((res) => res.element))
+                    .subscribe((res) => {
+                    this.currentPlayerInfoExtend = res;
+                    this.currentMatchesId = res.map((e) => e.matchId);
+                    this._initializeButtonOptions();
+                    this.getMatcheInfoAll();
+                }, err => {
+                    console.error('Unable to fetch player detail extends', err);
+                });
+            }
+        }
+    }
+    getMatcheInfoAll() {
+        this._fixtureService.getMatcheInfoAll(this.currentMatchesId)
+            .pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)((res) => res.element))
+            .subscribe((res) => {
+            this.currentMatchesList = res;
+            this.loadDataPanels();
+            this._buildTableData();
+            this.selectedCategory.valueChanges.subscribe(category => {
+                if (category) {
+                    this._buildTableData();
                 }
-                // Fetches Player extended stats info
-                this.activeSeason = (_d = (_c = (_b = player.currentTeam) === null || _b === void 0 ? void 0 : _b.league) === null || _c === void 0 ? void 0 : _c.seasons) === null || _d === void 0 ? void 0 : _d.find(s => s.active);
-                if (this.activeSeason) {
-                    this._playerService.getPlayerExtendedStats(player.id, this.activeSeason.id);
-                }
-            }
-        }));
-        // Takes care of joining the data and building the table
-        this._subscriptions.push(this.matches$.subscribe(matches => {
-            if (matches) {
-                this.loadDataPanels();
-                this._buildTableData();
-            }
-        }));
+            });
+        }, err => {
+            console.error('Unable to fetch player detail extends', err);
+        });
     }
     calculateStatTotal(index) {
         let total = 0;
@@ -7805,81 +7862,79 @@ class PlayerWyscoutStatsComponent {
     }
     loadDataPanels() {
         this.listDataPanels = [];
-        const playerDetails = this.playerDetails$.value;
-        const playerStats = this.playerStatsExtended$.value;
         // @ts-ignore
-        const roleStat = this._playerRolesStats[playerDetails.roleId];
-        const matchesList = this.matches$.value;
-        if (playerStats && matchesList && roleStat) {
+        const roleStat = this._playerRolesStats[this.currentPlayerInfo.roleId];
+        if (this.currentPlayerInfoExtend && this.currentMatchesList && roleStat) {
             Object.keys(roleStat).forEach(role => {
                 let auxListDataPanels = { title: role, categories: [] };
                 roleStat[role].forEach((categoryStat) => {
                     // @ts-ignore
                     auxListDataPanels.categories.push({ name: categoryStat, total: 0 });
                 });
-                matchesList.forEach(match => {
-                    const matchStat = playerStats.find(s => s.matchId === match.id);
-                    if (matchStat) {
-                        const { total } = matchStat;
-                        // @ts-ignore
-                        auxListDataPanels.categories = auxListDataPanels.categories.map((category) => {
-                            if (total[category.name]) {
-                                category.total = category.total + total[category.name];
-                            }
-                            return category;
-                        });
+                this.currentMatchesList.forEach((match) => {
+                    if (this.currentPlayerInfoExtend) {
+                        const matchStat = this.currentPlayerInfoExtend.find(s => s.matchId === match.id);
+                        if (matchStat) {
+                            const { total } = matchStat;
+                            // @ts-ignore
+                            auxListDataPanels.categories = auxListDataPanels.categories.map((category) => {
+                                if (total[category.name]) {
+                                    category.total = category.total + total[category.name];
+                                }
+                                return category;
+                            });
+                        }
                     }
                 });
                 this.listDataPanels.push(auxListDataPanels);
             });
         }
     }
-    _initializeButtonOptions(player) {
+    _initializeButtonOptions() {
         this.buttonOptions = [];
         // @ts-ignore
-        const statColumns = this._playerRolesStats[player.roleId];
+        const statColumns = this._playerRolesStats[this.currentPlayerInfo.roleId];
         Object.keys(statColumns).forEach(col => {
             this.buttonOptions.push(col);
         });
         this.selectedCategory.setValue(this.buttonOptions[0]);
     }
     _buildTableData() {
-        const matchesList = this.matches$.value;
         const positionCategory = this.selectedCategory.value;
-        if (matchesList.length && positionCategory.length) {
+        if (this.currentMatchesList.length && positionCategory.length) {
             this.tableColumns = [];
             this.tableValues = [];
-            const playerDetails = this.playerDetails$.value;
-            const playerStats = this.playerStatsExtended$.value;
             // @ts-ignore
-            const statColumns = this._playerRolesStats[playerDetails.roleId];
+            const statColumns = this._playerRolesStats[this.currentPlayerInfo.roleId];
             const categoryStats = statColumns[positionCategory];
             // Hardcoded column name
             this.tableColumns.push('matches');
-            matchesList.forEach(match => {
-                const matchStat = playerStats.find(s => s.matchId === match.id);
-                if (matchStat) {
-                    const aux = [match];
-                    categoryStats.forEach((categoryStat) => {
-                        if (!this.tableColumns.includes(categoryStat)) {
-                            this.tableColumns.push(categoryStat);
-                        }
-                        // @ts-ignore
-                        aux.push(matchStat.total[categoryStat]);
-                    });
-                    this.tableValues.push(aux);
+            this.currentMatchesList.forEach((match) => {
+                if (this.currentPlayerInfoExtend) {
+                    const matchStat = this.currentPlayerInfoExtend.find(s => s.matchId === match.id);
+                    if (matchStat) {
+                        const aux = [match];
+                        categoryStats.forEach((categoryStat) => {
+                            if (!this.tableColumns.includes(categoryStat)) {
+                                this.tableColumns.push(categoryStat);
+                            }
+                            // @ts-ignore
+                            aux.push(matchStat.total[categoryStat]);
+                        });
+                        this.tableValues.push(aux);
+                    }
                 }
             });
         }
     }
 }
-PlayerWyscoutStatsComponent.ɵfac = function PlayerWyscoutStatsComponent_Factory(t) { return new (t || PlayerWyscoutStatsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.LeaguesService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.PlayerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.FixtureService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService)); };
+PlayerWyscoutStatsComponent.ɵfac = function PlayerWyscoutStatsComponent_Factory(t) { return new (t || PlayerWyscoutStatsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.ActivatedRoute), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.LeaguesService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.PlayerService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormBuilder), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_aft_core__WEBPACK_IMPORTED_MODULE_0__.FixtureService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__.TranslateService)); };
 PlayerWyscoutStatsComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({ type: PlayerWyscoutStatsComponent, selectors: [["aft-wyscout-stats"]], inputs: { showPlayerResume: "showPlayerResume" }, decls: 2, vars: 3, consts: [[4, "ngIf"], [1, "generalStats"], [3, "options", "ngModel", "ngModelChange"], ["inputId", "dropdown", 3, "options", "ngModel", "ngModelChange"], ["class", "sectionTotalStatsBox", 4, "ngIf"], ["class", "sectionMatchStatsBox", 4, "ngIf"], [1, "sectionTotalStatsBox"], ["class", "contenStatBox", 4, "ngFor", "ngForOf"], [1, "contenStatBox"], [1, "contenStatBoxBorders"], [1, "statsTitle"], ["class", "statsDetail", 4, "ngFor", "ngForOf"], [1, "statsDetail"], [1, "sectionMatchStatsBox"], [4, "ngIf", "ngIfElse"], ["no_data", ""], [1, "selectGroupMatchStats"], ["placeholder", "generales", 1, "drop_table", 3, "formControl", "options"], ["pTemplate", "item"], ["pTemplate", "selectedItem"], [3, "columns", "value"], ["pTemplate", "header"], ["pTemplate", "body"], ["class", "headMatchesBox", 4, "ngFor", "ngForOf"], [1, "headMatchesBox"], [4, "ngFor", "ngForOf"], [1, "matchesBox"], [1, "dateMatch"], [1, "teamHomeBox"], [1, "team_img"], ["width", "20", 2, "vertical-align", "middle", 3, "alt", "src"], [1, "team_name"], [1, "teamAwayBox"], [1, "scoreHomeBox"], [1, "score_result"], [1, "scoreAwayBox"], [1, "statDetailBox"]], template: function PlayerWyscoutStatsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](0, PlayerWyscoutStatsComponent_ng_container_0_Template, 3, 3, "ng-container", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipe"](1, "async");
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵpipeBind1"](1, 1, ctx.playerDetails$));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.NgIf, primeng_selectbutton__WEBPACK_IMPORTED_MODULE_6__.SelectButton, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgModel, primeng_dropdown__WEBPACK_IMPORTED_MODULE_7__.Dropdown, _angular_common__WEBPACK_IMPORTED_MODULE_5__.NgForOf, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControlDirective, primeng_api__WEBPACK_IMPORTED_MODULE_8__.PrimeTemplate, primeng_table__WEBPACK_IMPORTED_MODULE_9__.Table], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_5__.AsyncPipe, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslatePipe, _angular_common__WEBPACK_IMPORTED_MODULE_5__.DatePipe, _pipes_team_flag_pipe__WEBPACK_IMPORTED_MODULE_1__.TeamFlagPipe], styles: ["[_nghost-%COMP%]     .p-datatable .p-datatable-tbody > tr > td {\n  padding: 0.3rem 0;\n}\n[_nghost-%COMP%]     .p-datatable .p-datatable-thead > tr > th {\n  text-align: center;\n  padding: 0.3rem 0.5rem;\n}\n.statDetailBox[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(1n) {\n  width: 30%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(2n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(3n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(4n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(5n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(6n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(7n) {\n  width: 14%;\n}\n.matchesBox[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-content: center;\n  width: max-content;\n  min-width: 100%;\n}\n.matchesBox[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  padding: 0 0.3rem;\n}\n.matchesBox[_ngcontent-%COMP%]   .dateMatch[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n}\n.matchesBox[_ngcontent-%COMP%]   .scoreHomeBox[_ngcontent-%COMP%] {\n  font-weight: 600;\n  width: 50px;\n  text-align: center;\n}\n.matchesBox[_ngcontent-%COMP%]   .scoreAwayBox[_ngcontent-%COMP%] {\n  font-weight: 600;\n  width: 50px;\n  text-align: center;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  margin-top: 2rem;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%] {\n  width: 50%;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%] {\n  margin: 0.5rem;\n  border-radius: 0.5rem;\n  border: 1px solid #e8e8e8;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsTitle[_ngcontent-%COMP%] {\n  padding: 15px 10px;\n  font-size: 1rem;\n  font-weight: 600;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsDetail[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 100%;\n  padding: 15px 10px;\n  border-top: 1px solid #e8e8e8;\n  font-size: 0.9rem;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsDetail[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-weight: 600;\n}\n.sectionSelectSeason[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: flex-start;\n  margin-top: 1rem;\n}\n.sectionSelectSeason[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  width: 200px;\n}\n.sectionSelectSeason[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.3rem;\n  font-size: 0.8rem;\n}\n.generalStats[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: -moz-fit-content;\n  width: fit-content;\n  padding: 0.5rem 1rem;\n  border: 1px solid #e8e8e8;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%]   sup[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 100%;\n  font-size: 2.4rem;\n  text-align: center;\n}\np[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .selectGroupMatchStats[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-start;\n  padding: 1rem;\n  border-bottom: 1px solid #e8e8e8;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%] {\n  align-items: center;\n  justify-content: space-between;\n}\n@media screen and (max-width: 991px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%] {\n    flex-direction: column-reverse;\n    align-items: flex-start;\n  }\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .base_title[_ngcontent-%COMP%] {\n  color: #0081fc;\n}\n@media screen and (max-width: 991px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .base_title[_ngcontent-%COMP%] {\n    margin-bottom: 20px;\n  }\n}\n@media screen and (max-width: 767px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .buttons_table[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .drop_table[_ngcontent-%COMP%] {\n  display: block;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .base_text[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  margin-bottom: 10px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: 100%;\n  margin-bottom: 10px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .result[_ngcontent-%COMP%] {\n  text-align: center;\n  min-width: 30px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .result[_ngcontent-%COMP%]   .score_result[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .team_name[_ngcontent-%COMP%] {\n  color: #002d64;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .team_img[_ngcontent-%COMP%] {\n  margin-left: 5px;\n  margin-right: 5px;\n}\n[_nghost-%COMP%]     .p-datatable-thead tr th:first-child {\n  border-right: 2px solid #2196f3;\n}\n[_nghost-%COMP%]     .p-datatable-tbody tr td:nth-child(3) {\n  border-right: 2px solid #2196f3;\n}\n.styleTable[_ngcontent-%COMP%]   table[_ngcontent-%COMP%]   .p-datatable-tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td[_ngcontent-%COMP%]:first-child {\n  border-right: 1px solid #2196f3;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFwuLlxcLi5cXHNjb3V0aW5nLXBvcnRhbFxcc3JjXFxhc3NldHNcXHNjc3NcXHZhcmlhYmxlcy5zY3NzIiwicGxheWVyLXd5c2NvdXQtc3RhdHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsaUZBQUE7QUFFQSwrQkFBQTtBQUVBLHNCQUFBO0FBRUEsaUJBQUE7QUFNQSxnQkFBQTtBQU9BLGVBQUE7QUFNQSxjQUFBO0FBUUEsV0FBQTtBQUlBLGNBQUE7QUFRQSxhQUFBO0FBUUEsV0FBQTtBQU9BLFlBQUE7QUFRQSxxQkFBQTtBQVNBLDRDQUFBO0FBRUEsY0FBQTtBQVNBLGtCQUFBO0FBU0EseUNBQUE7QUFFQSx1QkFBQTtBQU9BLGNBQUE7QUFPQSxpQkFBQTtBQW1CQSxlQUFBO0FBa0JBLGlCQUFBO0FBSUEsa0JBQUE7QUFtQkEscUNBQUE7QUFRQSxzQ0FBQTtBQUNBLHdEQUFBO0FDbExBO0VBQ0UsaUJBQUE7QUF1QkY7QUFwQkE7RUFDRSxrQkFBQTtFQUNBLHNCQUFBO0FBdUJGO0FBcEJBO0VBQ0Usa0JBQUE7QUF1QkY7QUFwQkE7RUFDRSxVQUFBO0FBdUJGO0FBckJBO0VBQ0UsVUFBQTtBQXdCRjtBQXRCQTtFQUNFLFVBQUE7QUF5QkY7QUF2QkE7RUFDRSxVQUFBO0FBMEJGO0FBeEJBO0VBQ0UsVUFBQTtBQTJCRjtBQXpCQTtFQUNFLFVBQUE7QUE0QkY7QUExQkE7RUFDRSxVQUFBO0FBNkJGO0FBMUJBO0VBQ0UsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsMkJBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQTZCRjtBQTVCRTtFQUNFLGlCQUFBO0FBOEJKO0FBNUJFO0VBQ0UsaUJBQUE7QUE4Qko7QUE1QkU7RUFDRSxnQkFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtBQThCSjtBQTVCRTtFQUNFLGdCQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0FBOEJKO0FBMUJBO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0FBNkJGO0FBNUJFO0VBQ0UsVUFBQTtBQThCSjtBQTdCSTtFQUNFLGNBQUE7RUFDQSxxQkFBQTtFQUNBLHlCQUFBO0FBK0JOO0FBOUJNO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUFnQ1I7QUE5Qk07RUFDRSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSw4QkFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0EsaUJBQUE7QUFnQ1I7QUEvQlE7RUFDRSxnQkFBQTtBQWlDVjtBQTFCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsMkJBQUE7RUFDQSxnQkFBQTtBQTZCRjtBQTVCRTtFQUNFLFlBQUE7QUE4Qko7QUE1Qkk7RUFDRSxjQUFBO0VBQ0EscUJBQUE7RUFDQSxpQkFBQTtBQThCTjtBQXpCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDJCQUFBO0FBNEJGO0FBM0JFO0VBQ0UsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsOEJBQUE7RUFDQSxtQkFBQTtFQUNBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxvQkFBQTtFQUNBLHlCQUFBO0FBNkJKO0FBNUJJO0VBQ0UsaUJBQUE7QUE4Qk47QUE3Qk07RUFDRSxpQkFBQTtBQStCUjtBQTVCSTtFQUNFLFdBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FBOEJOO0FBdkJBO0VBQ0UsU0FBQTtBQTBCRjtBQXRCRTtFQUNFLGFBQUE7RUFDQSwyQkFBQTtFQUNBLGFBQUE7RUFDQSxnQ0FBQTtBQXlCSjtBQXZCRTtFQUNFLG1CQUFBO0VBQ0EsOEJBQUE7QUF5Qko7QUF4Qkk7RUFIRjtJQUlJLDhCQUFBO0lBQ0EsdUJBQUE7RUEyQko7QUFDRjtBQTFCSTtFQUNFLGNEL0ljO0FDMktwQjtBQTNCTTtFQUZGO0lBR0ksbUJBQUE7RUE4Qk47QUFDRjtBQTFCTTtFQURGO0lBRUksYUFBQTtFQTZCTjtBQUNGO0FBM0JJO0VBQ0UsY0FBQTtBQTZCTjtBQXpCRTtFQUNFLFdBQUE7QUEyQko7QUExQkk7RUFDRSxpQkFBQTtFQUNBLG1CQUFBO0FBNEJOO0FBekJNO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsOEJBQUE7RUFDQSxXQUFBO0VBQ0EsbUJBQUE7QUEyQlI7QUExQlE7RUFDRSxrQkFBQTtBQTRCVjtBQTFCUTtFQUNFLGtCQUFBO0VBQ0EsZUFBQTtBQTRCVjtBQTNCVTtFQUNFLGlCQUFBO0FBNkJaO0FBMUJRO0VBQ0UsY0QzTE07QUN1TmhCO0FBMUJRO0VBQ0UsZ0JBQUE7RUFDQSxpQkFBQTtBQTRCVjtBQWxCTTtFQUNFLCtCQUFBO0FBcUJSO0FBWk07RUFDRSwrQkFBQTtBQWVSO0FBSlU7RUFDRSwrQkFBQTtBQU9aIiwiZmlsZSI6InBsYXllci13eXNjb3V0LXN0YXRzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vIFNBU1MgVmFyaWFibGVzIC8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLyAqL1xyXG5cclxuLyovLy8vLy8vLy8vIENvbG9ycyAvLy8vLy8vLy8vKi9cclxuXHJcbi8qLy8vLy8gR2VuZXJhbCAvLy8vLyovXHJcblxyXG4vKi8gTWFpbiBHcmVlbiAvKi9cclxuJGNvbG9yTWFpbjogIzg4YjJhZDtcclxuJGNvbG9yTWFpbl9saWdodDogIzk5YWRhYjtcclxuJGNvbG9yTWFpbl9kYXJrOiAjNTc3ZTc5O1xyXG4kY29sb3JNYWluX3NoYWRvdzogcmdiYSgxOTksIDIwNiwgMjAwLCAwLjQxOCk7XHJcblxyXG4vKi8gTWFpbiBCbHVlIC8qL1xyXG4kY29sb3JNYWluQmx1ZTogIzAwMmQ2NDtcclxuJGNvbG9yTWFpbkJsdWVfbGlnaHQ6ICM0NzZlOWY7XHJcbiRjb2xvck1haW5CbHVlX2Rhcms6ICMxMjJjNGI7XHJcbiRjb2xvck1haW5CbHVlX3NoYWRvdzogcmdiYSgxMjMsIDEyOCwgMTU2LCAwLjUpO1xyXG4kY29sb3JNYWluQmx1ZV9jdGE6ICMwMDgxZmM7XHJcblxyXG4vKi8gTWFpbiBhbHQgLyovXHJcbiRjb2xvck1haW5BbHQ6ICMzMzQwNWQ7XHJcbiRjb2xvck1haW5BbHRfbGlnaHQ6ICM0MTViOTY7XHJcbiRjb2xvck1haW5BbHRfZGFyazogIzIwMmQ0YTtcclxuJGNvbG9yTWFpbkFsdF9zaGFkb3c6IHJnYmEoNTEsIDY0LCA5MywgNTAlKTtcclxuXHJcbi8qLyBTdWNjZXNzIC8qL1xyXG4kY29sb3JTdWNjZXNzOiAjMDliNDZjO1xyXG4kY29sb3JTdWNjZXNzX2xpZ2h0OiAjMGFjYzdiO1xyXG4kY29sb3JTdWNjZXNzX2Rhcms6ICMwYjkzNWE7XHJcbiRjb2xvclN1Y2Nlc3Nfc2hhZG93OiByZ2JhKDksIDE4MCwgMTA4LCA1MCUpO1xyXG4kY29sb3JTdWNjZXNzX2FsdEJrZzogI2RiZmZjNztcclxuJGNvbG9yU3VjY2Vzc19hbHRUZXh0OiAjNDE3ZTIwO1xyXG5cclxuLyovIEluZm8gLyovXHJcbiRjb2xvckluZm9fYWx0QmtnOiAjZThlZGZmO1xyXG4kY29sb3JJbmZvX2FsdFRleHQ6ICMzMzQwNWQ7XHJcblxyXG4vKi8gV2FybmluZyAvKi9cclxuJGNvbG9yV2FybmluZzogI2ZlYmQ0MDtcclxuJGNvbG9yV2FybmluZ19saWdodDogI2ZmY2I2NztcclxuJGNvbG9yV2FybmluZ19kYXJrOiAjZWFhNDFlO1xyXG4kY29sb3JXYXJuaW5nX3NoYWRvdzogcmdiYSgyNTQsIDE4OSwgNjQsIDUwJSk7XHJcbiRjb2xvcldhcm5pbmdfYWx0QmtnOiAjZmZmNWU4O1xyXG4kY29sb3JXYXJuaW5nX2FsdFRleHQ6ICM4OTVlMGI7XHJcblxyXG4vKi8gRGFuZ2VyIC8qL1xyXG4kY29sb3JEYW5nZXI6ICNmZjQxNDE7XHJcbiRjb2xvckRhbmdlcl9saWdodDogI2ZmNjg2ODtcclxuJGNvbG9yRGFuZ2VyX2Rhcms6ICNlYjEyMTI7XHJcbiRjb2xvckRhbmdlcl9zaGFkb3c6IHJnYmEoMjU1LCA2NSwgNjUsIDUwJSk7XHJcbiRjb2xvckRhbmdlcl9hbHRCa2c6ICNmZmU4ZTg7XHJcbiRjb2xvckRhbmdlcl9hbHRUZXh0OiAjYTUyOTI5O1xyXG5cclxuLyovIFRleHQgLyovXHJcbiRjb2xvclRleHQ6ICMwMDAwMDA7XHJcbiRjb2xvclRleHRMaWdodDogIzdiN2I3YjtcclxuJGNvbG9yVGV4dExpZ2h0X3NoYWRvdzogcmdiYSgxMjMsIDEyMywgMTIzLCA1MCUpO1xyXG4kY29sb3JUZXh0SW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvclRleHREYXJrR3JleTogIzUwNTA1MDtcclxuXHJcbi8qLyBPdGhlciAvKi9cclxuJGNvbG9yT3V0bGluZTogI2RlZGVkZTtcclxuJGNvbG9yQmtnOiAjZmFmYWZhO1xyXG4kY29sb3JMaWdodEdyYXk6ICNmM2YzZjM7XHJcbiRjb2xvckRhcmtHcmV5OiAjNDE0MTQxO1xyXG4kY29sb3JHcmV5X3NoYWRvdzogcmdiYSgwLCAwLCAwLCAyNSUpO1xyXG4kY29sb3JPdXRpbGVfZGl2ZWRlcjogIzlmOWY5ZjtcclxuXHJcbi8qLy8vLy8gSGVhZGVyIC8vLy8vKi9cclxuXHJcbiRjb2xvckhlYWRlckJrZzogd2hpdGU7XHJcbiRjb2xvckhlYWRlclRleHQ6ICMwMDAwMDA7XHJcbiRjb2xvckhlYWRlclRleHRMaWdodDogIzdiN2I3YjtcclxuJGNvbG9ySGVhZGVySG92ZXI6ICNmMWYxZjE7XHJcbiRjb2xvckhlYWRlclNlYXJjaEJrZzogI2YxZjFmMTtcclxuJGNvbG9ySGVhZGVyT3V0bGluZTogcmdiYSgwLCAwLCAwLCAyNSUpO1xyXG5cclxuLyovLy8vLy8vLy8vIENvbG9ycyBEYXJrIG1vZGUgRE0gLy8vLy8vLy8vLyovXHJcblxyXG4vKi8gR2VuZXJhbCAvKi9cclxuXHJcbiRjb2xvclRleHRfZG06IHdoaXRlO1xyXG4kY29sb3JUZXh0TGlnaHRfZG06IHJnYmEoMjU1LCAyNTUsIDI1NSwgNzUlKTtcclxuJGNvbG9yVGV4dEludmVyc2VfZG06IHdoaXRlO1xyXG4kY29sb3JPdXRsaW5lX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDI1JSk7XHJcbiRjb2xvckJrZ19kbTogIzE2MjEzYTtcclxuJGNvbG9yRGFuZ2VyX2RtOiAjZmY1NjU2O1xyXG5cclxuLyovIEhlYWRlciBkYXJrIC8qL1xyXG5cclxuJGNvbG9ySGVhZGVyQmtnX2RtOiAjMzM0MDVkO1xyXG4kY29sb3JIZWFkZXJUZXh0X2RtOiB3aGl0ZTtcclxuJGNvbG9ySGVhZGVyVGV4dExpZ2h0X2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDc1JSk7XHJcbiRjb2xvckhlYWRlckhvdmVyX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDEwJSk7XHJcbiRjb2xvckhlYWRlclNlYXJjaEJrZ19kbTogcmdiYSgwLCAwLCAwLCAyMCUpO1xyXG4kY29sb3JIZWFkZXJPdXRsaW5lX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDI1JSk7XHJcblxyXG4vKi8vLy8vLy8vLy8gUG9zaXRpb25zIENvbG9ycyAvLy8vLy8vLy8vKi9cclxuXHJcbi8qLyBHZW5yZWFsIFBvc2l0aW9uIC8qL1xyXG5cclxuJGNvbG9yRldEOiAjMDA4MWZjO1xyXG4kY29sb3JNSUQ6ICMwMDJkNjQ7XHJcbiRjb2xvckRFRjogIzQ3NmU5ZjtcclxuJGNvbG9yR0tQOiAjODhiMmFkO1xyXG5cclxuLyovIFN0cmlrZXIgLyovXHJcblxyXG4kY29sb3JDRjogI2IxOTdmYztcclxuJGNvbG9yTFc6ICM5Nzc1ZmE7XHJcbiRjb2xvclJXOiAjODQ1ZWY3O1xyXG4kY29sb3JMV0Y6ICM3OTUwZjI7XHJcbiRjb2xvclJXRjogIzcwNDhlODtcclxuLyovIE1pZGZpZWxkZXIgLyovXHJcblxyXG4kY29sb3JBTUY6ICNmYWFmMDM7XHJcbiRjb2xvckxBTUY6ICNmNTlmMDA7XHJcbiRjb2xvclJBTUY6ICNmMDhjMDA7XHJcbiRjb2xvckxDTTogI2ZkN2UxNDtcclxuJGNvbG9yUkNNOiAjZjc2NzA3O1xyXG4kY29sb3JDTUY6ICNlODU5MGM7XHJcbiRjb2xvckRNRjogI2ZhNTI1MjtcclxuJGNvbG9yTERNOiAjZmU0NTQ1O1xyXG4kY29sb3JSRE06ICNmMDNlM2U7XHJcbiRjb2xvclJNRjogI2RiMzIzMjtcclxuJGNvbG9yTE1GOiAjZTAzMTMxO1xyXG4kY29sb3JSQU06ICNjOTJhMmE7XHJcbiRjb2xvckxDTUY6ICNhNjFlNGQ7XHJcbiRjb2xvclJDTUY6ICNjMjI1NWM7XHJcbiRjb2xvckxETUY6ICNkNjMzNmM7XHJcbiRjb2xvclJETUY6ICNlNjQ4N2Y7XHJcblxyXG4vKi8gRGVmZW5kZXIgLyovXHJcblxyXG4kY29sb3JDQjogIzgyYzkxZTtcclxuJGNvbG9yTENCOiAjNzRiODE2O1xyXG4kY29sb3JSQ0I6ICM2NmE4MGY7XHJcbiRjb2xvclJDQjM6ICMzN2IyNGQ7XHJcbiRjb2xvclJCOiAjMmY5ZTQ0O1xyXG4kY29sb3JSQ0I1OiAjMmI4YTNlO1xyXG4kY29sb3JMQjogIzA5OTI2ODtcclxuJGNvbG9yTFdCOiAjMGViNzg0O1xyXG4kY29sb3JSV0I6ICMzOGQ5YTk7XHJcbiRjb2xvclJCNTogIzNiYzlkYjtcclxuJGNvbG9yTEI1OiAjMjFiN2NlO1xyXG4kY29sb3JMQ0IzOiAjMTVhYWJmO1xyXG4kY29sb3JMQ0I1OiAjMTA5OGFkO1xyXG4kY29sb3JSQ01GMzogIzBhN2I4ZDtcclxuJGNvbG9yTENNRjM6ICMwMjUxNWU7XHJcblxyXG4vKi8gR29hbEtlZXBlciAvKi9cclxuXHJcbiRjb2xvckdLOiAjMzY0ZmM3O1xyXG5cclxuLyovIFZpZGVvcyBUYWdzIC8qL1xyXG5cclxuJGNvbG9yR29hbDogIzAwODFmYztcclxuJGNvbG9yU2F2ZTogIzAwMmQ2NDtcclxuJGNvbG9yU2F2ZVJlZmxleDogIzJiOGEzZTtcclxuJGNvbG9yUmVkQ2FyZDogI2RiMzIzMjtcclxuJGNvbG9yWWVsbG93Q2FyZDogI2ZhYWYwMztcclxuJGNvbG9yQ2FyZDogIzM2NGZjNztcclxuJGNvbG9yQXNzaXQ6ICM4OGIyYWQ7XHJcbiRjb2xvckNvbmNlZGVkR29hbDogI2MyMjU1YztcclxuJGNvbG9yRGVmZW5zaXZlRHVlbDogIzEwOThhZDtcclxuJGNvbG9yUGVuYWx0eUNvbmNlZGVkR29hbDogI2U4NTkwYztcclxuJGNvbG9yUGVuYWx0eUZvdWw6ICNkYjMyMzI7XHJcbiRjb2xvclBlbmFsdHlHb2FsOiAjNDc2ZTlmO1xyXG4kY29sb3JQZW5hbHR5U2F2ZTogIzM3YjI0ZDtcclxuJGNvbG9yU2hvdEFnYWluc3Q6ICM4MmM5MWU7XHJcbiRjb2xvclBhc3M6ICM3OTUwZjI7XHJcbiRjb2xvclNob3Q6ICNiMTk3ZmM7XHJcblxyXG4vKi8vLy8vLy8vLy8gTWVhc3VyZW1lbnRzIC8vLy8vLy8vLy8qL1xyXG5cclxuJGNvbnRhaW5lcldpZHRoUzogMTAwJTtcclxuJGNvbnRhaW5lcldpZHRoTTogNjMycHg7XHJcbiRjb250YWluZXJXaWR0aEw6IDEyMzJweDtcclxuXHJcbiRjb250YWluZXJHdXR0ZXI6IDFyZW07XHJcblxyXG4vKi8vLy8vLy8vLy8gTWVkaWEgUXVlcmllcyAvLy8vLy8vLy8vKi9cclxuLyogTWVkaWEgcXVlcmllcyBzaG91bGQgYWx3YXlzIGJlIHVzZWQgd2l0aCBtYXgtd2lkdGguICovXHJcblxyXG4kbWVkaWFxdWVyeVhTOiA2MDBweDtcclxuJG1lZGlhcXVlcnlTOiA3NjdweDtcclxuJG1lZGlhcXVlcnlNOiA5OTFweDtcclxuJG1lZGlhcXVlcnlMOiAxMTk5cHg7XHJcbiRtZWRpYXF1ZXJ5WEw6IDE0NDBweDtcclxuIiwiQGltcG9ydCAndmFyaWFibGVzJztcclxuXHJcblxyXG5cclxuOmhvc3QgOjpuZy1kZWVwIC5wLWRhdGF0YWJsZSAucC1kYXRhdGFibGUtdGJvZHkgPiB0ciA+IHRke1xyXG4gIHBhZGRpbmc6IC4zcmVtIDA7XHJcbn1cclxuXHJcbjpob3N0IDo6bmctZGVlcCAucC1kYXRhdGFibGUgLnAtZGF0YXRhYmxlLXRoZWFkID4gdHIgPiB0aHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgcGFkZGluZzogLjNyZW0gLjVyZW07XHJcbn1cclxuXHJcbi5zdGF0RGV0YWlsQm94e1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDFuKXtcclxuICB3aWR0aDogMzAlO1xyXG59XHJcbi5oZWFkTWF0Y2hlc0JveDpudGgtb2YtdHlwZSgybil7XHJcbiAgd2lkdGg6IDE0JTtcclxufVxyXG4uaGVhZE1hdGNoZXNCb3g6bnRoLW9mLXR5cGUoM24pe1xyXG4gIHdpZHRoOiAxNCU7XHJcbn1cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDRuKXtcclxuICB3aWR0aDogMTQlO1xyXG59XHJcbi5oZWFkTWF0Y2hlc0JveDpudGgtb2YtdHlwZSg1bil7XHJcbiAgd2lkdGg6IDE0JTtcclxufVxyXG4uaGVhZE1hdGNoZXNCb3g6bnRoLW9mLXR5cGUoNm4pe1xyXG4gIHdpZHRoOiAxNCU7XHJcbn1cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDduKXtcclxuICB3aWR0aDogMTQlO1xyXG59XHJcblxyXG4ubWF0Y2hlc0JveHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0OyBcclxuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7IFxyXG4gIHdpZHRoOiBtYXgtY29udGVudDtcclxuICBtaW4td2lkdGg6IDEwMCU7XHJcbiAgc3BhbntcclxuICAgIHBhZGRpbmc6IDAgLjNyZW07XHJcbiAgfVxyXG4gIC5kYXRlTWF0Y2h7XHJcbiAgICBmb250LXNpemU6IC43cmVtO1xyXG4gIH1cclxuICAuc2NvcmVIb21lQm94e1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIH1cclxuICAuc2NvcmVBd2F5Qm94e1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIH1cclxufVxyXG5cclxuLnNlY3Rpb25Ub3RhbFN0YXRzQm94e1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICBmbGV4LXdyYXA6IHdyYXA7XHJcbiAgbWFyZ2luLXRvcDogMnJlbTtcclxuICAuY29udGVuU3RhdEJveHsgXHJcbiAgICB3aWR0aDogNTAlO1xyXG4gICAgLmNvbnRlblN0YXRCb3hCb3JkZXJze1xyXG4gICAgICBtYXJnaW46IC41cmVtO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAuNXJlbTtcclxuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgICAgLnN0YXRzVGl0bGV7XHJcbiAgICAgICAgcGFkZGluZzogMTVweCAxMHB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMXJlbTtcclxuICAgICAgICBmb250LXdlaWdodDogNjAwO1xyXG4gICAgICB9XHJcbiAgICAgIC5zdGF0c0RldGFpbHtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgIHBhZGRpbmc6IDE1cHggMTBweDtcclxuICAgICAgICBib3JkZXItdG9wOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgICAgICBmb250LXNpemU6IC45cmVtO1xyXG4gICAgICAgIHNwYW57XHJcbiAgICAgICAgICBmb250LXdlaWdodDogNjAwO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuLnNlY3Rpb25TZWxlY3RTZWFzb257XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0O1xyXG4gIG1hcmdpbi10b3A6IDFyZW07IFxyXG4gIGRpdntcclxuICAgIHdpZHRoOiAyMDBweDtcclxuICAgIFxyXG4gICAgbGFiZWx7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBtYXJnaW4tYm90dG9tOiAuM3JlbTtcclxuICAgICAgZm9udC1zaXplOiAuOHJlbTtcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbi5nZW5lcmFsU3RhdHN7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxuICBkaXZ7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogZml0LWNvbnRlbnQ7XHJcbiAgICBwYWRkaW5nOiAuNXJlbSAxcmVtO1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgIGxhYmVse1xyXG4gICAgICBmb250LXNpemU6IDEuMnJlbTtcclxuICAgICAgc3Vwe1xyXG4gICAgICAgIGZvbnQtc2l6ZTogLjdyZW07XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIHNwYW57XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBmb250LXNpemU6IDIuNHJlbTtcclxuICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuXHJcblxyXG5wIHtcclxuICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi5zZWN0aW9uTWF0Y2hTdGF0c0JveCB7XHJcbiAgLnNlbGVjdEdyb3VwTWF0Y2hTdGF0c3tcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtc3RhcnQ7XHJcbiAgICBwYWRkaW5nOiAxcmVtO1xyXG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNlOGU4ZTg7XHJcbiAgfVxyXG4gIC50YWJsZV9oZWFkZXIge1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgIEBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ICRtZWRpYXF1ZXJ5TSkge1xyXG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uLXJldmVyc2U7XHJcbiAgICAgIGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0O1xyXG4gICAgfVxyXG4gICAgLmJhc2VfdGl0bGUge1xyXG4gICAgICBjb2xvcjogJGNvbG9yTWFpbkJsdWVfY3RhO1xyXG4gICAgICBAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAkbWVkaWFxdWVyeU0pIHtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xyXG4gICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgLmJ1dHRvbnNfdGFibGUge1xyXG4gICAgICBAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAkbWVkaWFxdWVyeVMpIHtcclxuICAgICAgICBkaXNwbGF5OiBub25lO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgICAuZHJvcF90YWJsZSB7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLmZpcnN0X2NvbHVtbiB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIC5iYXNlX3RleHQge1xyXG4gICAgICBmb250LXNpemU6IDAuOXJlbTtcclxuICAgICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIH1cclxuICAgIC50ZWFtc19kYXRhIHtcclxuICAgICAgLnRlYW1faXRlbSB7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgICAgICY6bGFzdC1jaGlsZCB7XHJcbiAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwcHg7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIC5yZXN1bHQge1xyXG4gICAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgICAgbWluLXdpZHRoOiAzMHB4O1xyXG4gICAgICAgICAgLnNjb3JlX3Jlc3VsdCB7XHJcbiAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgICAgICAudGVhbV9uYW1lIHtcclxuICAgICAgICAgIGNvbG9yOiAkY29sb3JNYWluQmx1ZTtcclxuICAgICAgICB9XHJcbiAgICAgICAgLnRlYW1faW1nIHtcclxuICAgICAgICAgIG1hcmdpbi1sZWZ0OiA1cHg7XHJcbiAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbjpob3N0IDo6bmctZGVlcCAucC1kYXRhdGFibGUtdGhlYWQge1xyXG4gIHRyIHtcclxuICAgIHRoIHtcclxuICAgICAgJjpmaXJzdC1jaGlsZCB7XHJcbiAgICAgICAgYm9yZGVyLXJpZ2h0OiAycHggc29saWQgIzIxOTZmMztcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuOmhvc3QgOjpuZy1kZWVwIC5wLWRhdGF0YWJsZS10Ym9keSB7XHJcbiAgdHIge1xyXG4gICAgdGQge1xyXG4gICAgICAmOm50aC1jaGlsZCgzKSB7XHJcbiAgICAgICAgYm9yZGVyLXJpZ2h0OiAycHggc29saWQgIzIxOTZmMztcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG4uc3R5bGVUYWJsZXtcclxuICB0YWJsZSB7XHJcbiAgICBcclxuICAgIC5wLWRhdGF0YWJsZS10Ym9keSB7XHJcbiAgICAgIHRyIHtcclxuICAgICAgICB0ZCB7XHJcbiAgICAgICAgICAmOmZpcnN0LWNoaWxkIHtcclxuICAgICAgICAgICAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgIzIxOTZmMztcclxuICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbiJdfQ== */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, primeng_selectbutton__WEBPACK_IMPORTED_MODULE_8__.SelectButton, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.NgModel, primeng_dropdown__WEBPACK_IMPORTED_MODULE_9__.Dropdown, _angular_common__WEBPACK_IMPORTED_MODULE_7__.NgForOf, _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormControlDirective, primeng_api__WEBPACK_IMPORTED_MODULE_10__.PrimeTemplate, primeng_table__WEBPACK_IMPORTED_MODULE_11__.Table], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.AsyncPipe, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__.TranslatePipe, _angular_common__WEBPACK_IMPORTED_MODULE_7__.DatePipe, _pipes_team_flag_pipe__WEBPACK_IMPORTED_MODULE_1__.TeamFlagPipe], styles: ["[_nghost-%COMP%]     .p-datatable .p-datatable-tbody > tr > td {\n  padding: 0.3rem 0;\n}\n[_nghost-%COMP%]     .p-datatable .p-datatable-thead > tr > th {\n  text-align: center;\n  padding: 0.3rem 0.5rem;\n}\n.statDetailBox[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(1n) {\n  width: 30%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(2n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(3n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(4n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(5n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(6n) {\n  width: 14%;\n}\n.headMatchesBox[_ngcontent-%COMP%]:nth-of-type(7n) {\n  width: 14%;\n}\n.matchesBox[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-content: center;\n  width: max-content;\n  min-width: 100%;\n}\n.matchesBox[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  padding: 0 0.3rem;\n}\n.matchesBox[_ngcontent-%COMP%]   .dateMatch[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n}\n.matchesBox[_ngcontent-%COMP%]   .scoreHomeBox[_ngcontent-%COMP%] {\n  font-weight: 600;\n  width: 50px;\n  text-align: center;\n}\n.matchesBox[_ngcontent-%COMP%]   .scoreAwayBox[_ngcontent-%COMP%] {\n  font-weight: 600;\n  width: 50px;\n  text-align: center;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  margin-top: 2rem;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%] {\n  width: 50%;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%] {\n  margin: 0.5rem;\n  border-radius: 0.5rem;\n  border: 1px solid #e8e8e8;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsTitle[_ngcontent-%COMP%] {\n  padding: 15px 10px;\n  font-size: 1rem;\n  font-weight: 600;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsDetail[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 100%;\n  padding: 15px 10px;\n  border-top: 1px solid #e8e8e8;\n  font-size: 0.9rem;\n}\n.sectionTotalStatsBox[_ngcontent-%COMP%]   .contenStatBox[_ngcontent-%COMP%]   .contenStatBoxBorders[_ngcontent-%COMP%]   .statsDetail[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  font-weight: 600;\n}\n.sectionSelectSeason[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: flex-start;\n  margin-top: 1rem;\n}\n.sectionSelectSeason[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  width: 200px;\n}\n.sectionSelectSeason[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  margin-bottom: 0.3rem;\n  font-size: 0.8rem;\n}\n.generalStats[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  width: -moz-fit-content;\n  width: fit-content;\n  padding: 0.5rem 1rem;\n  border: 1px solid #e8e8e8;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   label[_ngcontent-%COMP%]   sup[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n}\n.generalStats[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  width: 100%;\n  font-size: 2.4rem;\n  text-align: center;\n}\np[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .selectGroupMatchStats[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: flex-start;\n  padding: 1rem;\n  border-bottom: 1px solid #e8e8e8;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%] {\n  align-items: center;\n  justify-content: space-between;\n}\n@media screen and (max-width: 991px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%] {\n    flex-direction: column-reverse;\n    align-items: flex-start;\n  }\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .base_title[_ngcontent-%COMP%] {\n  color: #0081fc;\n}\n@media screen and (max-width: 991px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .base_title[_ngcontent-%COMP%] {\n    margin-bottom: 20px;\n  }\n}\n@media screen and (max-width: 767px) {\n  .sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .buttons_table[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .table_header[_ngcontent-%COMP%]   .drop_table[_ngcontent-%COMP%] {\n  display: block;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .base_text[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  margin-bottom: 10px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  width: 100%;\n  margin-bottom: 10px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .result[_ngcontent-%COMP%] {\n  text-align: center;\n  min-width: 30px;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .result[_ngcontent-%COMP%]   .score_result[_ngcontent-%COMP%] {\n  font-weight: bold;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .team_name[_ngcontent-%COMP%] {\n  color: #002d64;\n}\n.sectionMatchStatsBox[_ngcontent-%COMP%]   .first_column[_ngcontent-%COMP%]   .teams_data[_ngcontent-%COMP%]   .team_item[_ngcontent-%COMP%]   .team_img[_ngcontent-%COMP%] {\n  margin-left: 5px;\n  margin-right: 5px;\n}\n[_nghost-%COMP%]     .p-datatable-thead tr th:first-child {\n  border-right: 2px solid #2196f3;\n}\n[_nghost-%COMP%]     .p-datatable-tbody tr td:nth-child(3) {\n  border-right: 2px solid #2196f3;\n}\n.styleTable[_ngcontent-%COMP%]   table[_ngcontent-%COMP%]   .p-datatable-tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]   td[_ngcontent-%COMP%]:first-child {\n  border-right: 1px solid #2196f3;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFwuLlxcLi5cXHNjb3V0aW5nLXBvcnRhbFxcc3JjXFxhc3NldHNcXHNjc3NcXHZhcmlhYmxlcy5zY3NzIiwicGxheWVyLXd5c2NvdXQtc3RhdHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsaUZBQUE7QUFFQSwrQkFBQTtBQUVBLHNCQUFBO0FBRUEsaUJBQUE7QUFNQSxnQkFBQTtBQU9BLGVBQUE7QUFNQSxjQUFBO0FBUUEsV0FBQTtBQUlBLGNBQUE7QUFRQSxhQUFBO0FBUUEsV0FBQTtBQU9BLFlBQUE7QUFRQSxxQkFBQTtBQVNBLDRDQUFBO0FBRUEsY0FBQTtBQVNBLGtCQUFBO0FBU0EseUNBQUE7QUFFQSx1QkFBQTtBQU9BLGNBQUE7QUFPQSxpQkFBQTtBQW1CQSxlQUFBO0FBa0JBLGlCQUFBO0FBSUEsa0JBQUE7QUFtQkEscUNBQUE7QUFRQSxzQ0FBQTtBQUNBLHdEQUFBO0FDbExBO0VBQ0UsaUJBQUE7QUF1QkY7QUFwQkE7RUFDRSxrQkFBQTtFQUNBLHNCQUFBO0FBdUJGO0FBcEJBO0VBQ0Usa0JBQUE7QUF1QkY7QUFwQkE7RUFDRSxVQUFBO0FBdUJGO0FBckJBO0VBQ0UsVUFBQTtBQXdCRjtBQXRCQTtFQUNFLFVBQUE7QUF5QkY7QUF2QkE7RUFDRSxVQUFBO0FBMEJGO0FBeEJBO0VBQ0UsVUFBQTtBQTJCRjtBQXpCQTtFQUNFLFVBQUE7QUE0QkY7QUExQkE7RUFDRSxVQUFBO0FBNkJGO0FBMUJBO0VBQ0UsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsMkJBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQTZCRjtBQTVCRTtFQUNFLGlCQUFBO0FBOEJKO0FBNUJFO0VBQ0UsaUJBQUE7QUE4Qko7QUE1QkU7RUFDRSxnQkFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtBQThCSjtBQTVCRTtFQUNFLGdCQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0FBOEJKO0FBMUJBO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0FBNkJGO0FBNUJFO0VBQ0UsVUFBQTtBQThCSjtBQTdCSTtFQUNFLGNBQUE7RUFDQSxxQkFBQTtFQUNBLHlCQUFBO0FBK0JOO0FBOUJNO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUFnQ1I7QUE5Qk07RUFDRSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSw4QkFBQTtFQUNBLFdBQUE7RUFDQSxrQkFBQTtFQUNBLDZCQUFBO0VBQ0EsaUJBQUE7QUFnQ1I7QUEvQlE7RUFDRSxnQkFBQTtBQWlDVjtBQTFCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLG1CQUFBO0VBQ0EsMkJBQUE7RUFDQSxnQkFBQTtBQTZCRjtBQTVCRTtFQUNFLFlBQUE7QUE4Qko7QUE1Qkk7RUFDRSxjQUFBO0VBQ0EscUJBQUE7RUFDQSxpQkFBQTtBQThCTjtBQXpCQTtFQUNFLGFBQUE7RUFDQSxtQkFBQTtFQUNBLDJCQUFBO0FBNEJGO0FBM0JFO0VBQ0UsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsOEJBQUE7RUFDQSxtQkFBQTtFQUNBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxvQkFBQTtFQUNBLHlCQUFBO0FBNkJKO0FBNUJJO0VBQ0UsaUJBQUE7QUE4Qk47QUE3Qk07RUFDRSxpQkFBQTtBQStCUjtBQTVCSTtFQUNFLFdBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FBOEJOO0FBdkJBO0VBQ0UsU0FBQTtBQTBCRjtBQXRCRTtFQUNFLGFBQUE7RUFDQSwyQkFBQTtFQUNBLGFBQUE7RUFDQSxnQ0FBQTtBQXlCSjtBQXZCRTtFQUNFLG1CQUFBO0VBQ0EsOEJBQUE7QUF5Qko7QUF4Qkk7RUFIRjtJQUlJLDhCQUFBO0lBQ0EsdUJBQUE7RUEyQko7QUFDRjtBQTFCSTtFQUNFLGNEL0ljO0FDMktwQjtBQTNCTTtFQUZGO0lBR0ksbUJBQUE7RUE4Qk47QUFDRjtBQTFCTTtFQURGO0lBRUksYUFBQTtFQTZCTjtBQUNGO0FBM0JJO0VBQ0UsY0FBQTtBQTZCTjtBQXpCRTtFQUNFLFdBQUE7QUEyQko7QUExQkk7RUFDRSxpQkFBQTtFQUNBLG1CQUFBO0FBNEJOO0FBekJNO0VBQ0UsYUFBQTtFQUNBLG1CQUFBO0VBQ0EsOEJBQUE7RUFDQSxXQUFBO0VBQ0EsbUJBQUE7QUEyQlI7QUExQlE7RUFDRSxrQkFBQTtBQTRCVjtBQTFCUTtFQUNFLGtCQUFBO0VBQ0EsZUFBQTtBQTRCVjtBQTNCVTtFQUNFLGlCQUFBO0FBNkJaO0FBMUJRO0VBQ0UsY0QzTE07QUN1TmhCO0FBMUJRO0VBQ0UsZ0JBQUE7RUFDQSxpQkFBQTtBQTRCVjtBQWxCTTtFQUNFLCtCQUFBO0FBcUJSO0FBWk07RUFDRSwrQkFBQTtBQWVSO0FBSlU7RUFDRSwrQkFBQTtBQU9aIiwiZmlsZSI6InBsYXllci13eXNjb3V0LXN0YXRzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vIFNBU1MgVmFyaWFibGVzIC8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLyAqL1xyXG5cclxuLyovLy8vLy8vLy8vIENvbG9ycyAvLy8vLy8vLy8vKi9cclxuXHJcbi8qLy8vLy8gR2VuZXJhbCAvLy8vLyovXHJcblxyXG4vKi8gTWFpbiBHcmVlbiAvKi9cclxuJGNvbG9yTWFpbjogIzg4YjJhZDtcclxuJGNvbG9yTWFpbl9saWdodDogIzk5YWRhYjtcclxuJGNvbG9yTWFpbl9kYXJrOiAjNTc3ZTc5O1xyXG4kY29sb3JNYWluX3NoYWRvdzogcmdiYSgxOTksIDIwNiwgMjAwLCAwLjQxOCk7XHJcblxyXG4vKi8gTWFpbiBCbHVlIC8qL1xyXG4kY29sb3JNYWluQmx1ZTogIzAwMmQ2NDtcclxuJGNvbG9yTWFpbkJsdWVfbGlnaHQ6ICM0NzZlOWY7XHJcbiRjb2xvck1haW5CbHVlX2Rhcms6ICMxMjJjNGI7XHJcbiRjb2xvck1haW5CbHVlX3NoYWRvdzogcmdiYSgxMjMsIDEyOCwgMTU2LCAwLjUpO1xyXG4kY29sb3JNYWluQmx1ZV9jdGE6ICMwMDgxZmM7XHJcblxyXG4vKi8gTWFpbiBhbHQgLyovXHJcbiRjb2xvck1haW5BbHQ6ICMzMzQwNWQ7XHJcbiRjb2xvck1haW5BbHRfbGlnaHQ6ICM0MTViOTY7XHJcbiRjb2xvck1haW5BbHRfZGFyazogIzIwMmQ0YTtcclxuJGNvbG9yTWFpbkFsdF9zaGFkb3c6IHJnYmEoNTEsIDY0LCA5MywgNTAlKTtcclxuXHJcbi8qLyBTdWNjZXNzIC8qL1xyXG4kY29sb3JTdWNjZXNzOiAjMDliNDZjO1xyXG4kY29sb3JTdWNjZXNzX2xpZ2h0OiAjMGFjYzdiO1xyXG4kY29sb3JTdWNjZXNzX2Rhcms6ICMwYjkzNWE7XHJcbiRjb2xvclN1Y2Nlc3Nfc2hhZG93OiByZ2JhKDksIDE4MCwgMTA4LCA1MCUpO1xyXG4kY29sb3JTdWNjZXNzX2FsdEJrZzogI2RiZmZjNztcclxuJGNvbG9yU3VjY2Vzc19hbHRUZXh0OiAjNDE3ZTIwO1xyXG5cclxuLyovIEluZm8gLyovXHJcbiRjb2xvckluZm9fYWx0QmtnOiAjZThlZGZmO1xyXG4kY29sb3JJbmZvX2FsdFRleHQ6ICMzMzQwNWQ7XHJcblxyXG4vKi8gV2FybmluZyAvKi9cclxuJGNvbG9yV2FybmluZzogI2ZlYmQ0MDtcclxuJGNvbG9yV2FybmluZ19saWdodDogI2ZmY2I2NztcclxuJGNvbG9yV2FybmluZ19kYXJrOiAjZWFhNDFlO1xyXG4kY29sb3JXYXJuaW5nX3NoYWRvdzogcmdiYSgyNTQsIDE4OSwgNjQsIDUwJSk7XHJcbiRjb2xvcldhcm5pbmdfYWx0QmtnOiAjZmZmNWU4O1xyXG4kY29sb3JXYXJuaW5nX2FsdFRleHQ6ICM4OTVlMGI7XHJcblxyXG4vKi8gRGFuZ2VyIC8qL1xyXG4kY29sb3JEYW5nZXI6ICNmZjQxNDE7XHJcbiRjb2xvckRhbmdlcl9saWdodDogI2ZmNjg2ODtcclxuJGNvbG9yRGFuZ2VyX2Rhcms6ICNlYjEyMTI7XHJcbiRjb2xvckRhbmdlcl9zaGFkb3c6IHJnYmEoMjU1LCA2NSwgNjUsIDUwJSk7XHJcbiRjb2xvckRhbmdlcl9hbHRCa2c6ICNmZmU4ZTg7XHJcbiRjb2xvckRhbmdlcl9hbHRUZXh0OiAjYTUyOTI5O1xyXG5cclxuLyovIFRleHQgLyovXHJcbiRjb2xvclRleHQ6ICMwMDAwMDA7XHJcbiRjb2xvclRleHRMaWdodDogIzdiN2I3YjtcclxuJGNvbG9yVGV4dExpZ2h0X3NoYWRvdzogcmdiYSgxMjMsIDEyMywgMTIzLCA1MCUpO1xyXG4kY29sb3JUZXh0SW52ZXJzZTogd2hpdGU7XHJcbiRjb2xvclRleHREYXJrR3JleTogIzUwNTA1MDtcclxuXHJcbi8qLyBPdGhlciAvKi9cclxuJGNvbG9yT3V0bGluZTogI2RlZGVkZTtcclxuJGNvbG9yQmtnOiAjZmFmYWZhO1xyXG4kY29sb3JMaWdodEdyYXk6ICNmM2YzZjM7XHJcbiRjb2xvckRhcmtHcmV5OiAjNDE0MTQxO1xyXG4kY29sb3JHcmV5X3NoYWRvdzogcmdiYSgwLCAwLCAwLCAyNSUpO1xyXG4kY29sb3JPdXRpbGVfZGl2ZWRlcjogIzlmOWY5ZjtcclxuXHJcbi8qLy8vLy8gSGVhZGVyIC8vLy8vKi9cclxuXHJcbiRjb2xvckhlYWRlckJrZzogd2hpdGU7XHJcbiRjb2xvckhlYWRlclRleHQ6ICMwMDAwMDA7XHJcbiRjb2xvckhlYWRlclRleHRMaWdodDogIzdiN2I3YjtcclxuJGNvbG9ySGVhZGVySG92ZXI6ICNmMWYxZjE7XHJcbiRjb2xvckhlYWRlclNlYXJjaEJrZzogI2YxZjFmMTtcclxuJGNvbG9ySGVhZGVyT3V0bGluZTogcmdiYSgwLCAwLCAwLCAyNSUpO1xyXG5cclxuLyovLy8vLy8vLy8vIENvbG9ycyBEYXJrIG1vZGUgRE0gLy8vLy8vLy8vLyovXHJcblxyXG4vKi8gR2VuZXJhbCAvKi9cclxuXHJcbiRjb2xvclRleHRfZG06IHdoaXRlO1xyXG4kY29sb3JUZXh0TGlnaHRfZG06IHJnYmEoMjU1LCAyNTUsIDI1NSwgNzUlKTtcclxuJGNvbG9yVGV4dEludmVyc2VfZG06IHdoaXRlO1xyXG4kY29sb3JPdXRsaW5lX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDI1JSk7XHJcbiRjb2xvckJrZ19kbTogIzE2MjEzYTtcclxuJGNvbG9yRGFuZ2VyX2RtOiAjZmY1NjU2O1xyXG5cclxuLyovIEhlYWRlciBkYXJrIC8qL1xyXG5cclxuJGNvbG9ySGVhZGVyQmtnX2RtOiAjMzM0MDVkO1xyXG4kY29sb3JIZWFkZXJUZXh0X2RtOiB3aGl0ZTtcclxuJGNvbG9ySGVhZGVyVGV4dExpZ2h0X2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDc1JSk7XHJcbiRjb2xvckhlYWRlckhvdmVyX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDEwJSk7XHJcbiRjb2xvckhlYWRlclNlYXJjaEJrZ19kbTogcmdiYSgwLCAwLCAwLCAyMCUpO1xyXG4kY29sb3JIZWFkZXJPdXRsaW5lX2RtOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDI1JSk7XHJcblxyXG4vKi8vLy8vLy8vLy8gUG9zaXRpb25zIENvbG9ycyAvLy8vLy8vLy8vKi9cclxuXHJcbi8qLyBHZW5yZWFsIFBvc2l0aW9uIC8qL1xyXG5cclxuJGNvbG9yRldEOiAjMDA4MWZjO1xyXG4kY29sb3JNSUQ6ICMwMDJkNjQ7XHJcbiRjb2xvckRFRjogIzQ3NmU5ZjtcclxuJGNvbG9yR0tQOiAjODhiMmFkO1xyXG5cclxuLyovIFN0cmlrZXIgLyovXHJcblxyXG4kY29sb3JDRjogI2IxOTdmYztcclxuJGNvbG9yTFc6ICM5Nzc1ZmE7XHJcbiRjb2xvclJXOiAjODQ1ZWY3O1xyXG4kY29sb3JMV0Y6ICM3OTUwZjI7XHJcbiRjb2xvclJXRjogIzcwNDhlODtcclxuLyovIE1pZGZpZWxkZXIgLyovXHJcblxyXG4kY29sb3JBTUY6ICNmYWFmMDM7XHJcbiRjb2xvckxBTUY6ICNmNTlmMDA7XHJcbiRjb2xvclJBTUY6ICNmMDhjMDA7XHJcbiRjb2xvckxDTTogI2ZkN2UxNDtcclxuJGNvbG9yUkNNOiAjZjc2NzA3O1xyXG4kY29sb3JDTUY6ICNlODU5MGM7XHJcbiRjb2xvckRNRjogI2ZhNTI1MjtcclxuJGNvbG9yTERNOiAjZmU0NTQ1O1xyXG4kY29sb3JSRE06ICNmMDNlM2U7XHJcbiRjb2xvclJNRjogI2RiMzIzMjtcclxuJGNvbG9yTE1GOiAjZTAzMTMxO1xyXG4kY29sb3JSQU06ICNjOTJhMmE7XHJcbiRjb2xvckxDTUY6ICNhNjFlNGQ7XHJcbiRjb2xvclJDTUY6ICNjMjI1NWM7XHJcbiRjb2xvckxETUY6ICNkNjMzNmM7XHJcbiRjb2xvclJETUY6ICNlNjQ4N2Y7XHJcblxyXG4vKi8gRGVmZW5kZXIgLyovXHJcblxyXG4kY29sb3JDQjogIzgyYzkxZTtcclxuJGNvbG9yTENCOiAjNzRiODE2O1xyXG4kY29sb3JSQ0I6ICM2NmE4MGY7XHJcbiRjb2xvclJDQjM6ICMzN2IyNGQ7XHJcbiRjb2xvclJCOiAjMmY5ZTQ0O1xyXG4kY29sb3JSQ0I1OiAjMmI4YTNlO1xyXG4kY29sb3JMQjogIzA5OTI2ODtcclxuJGNvbG9yTFdCOiAjMGViNzg0O1xyXG4kY29sb3JSV0I6ICMzOGQ5YTk7XHJcbiRjb2xvclJCNTogIzNiYzlkYjtcclxuJGNvbG9yTEI1OiAjMjFiN2NlO1xyXG4kY29sb3JMQ0IzOiAjMTVhYWJmO1xyXG4kY29sb3JMQ0I1OiAjMTA5OGFkO1xyXG4kY29sb3JSQ01GMzogIzBhN2I4ZDtcclxuJGNvbG9yTENNRjM6ICMwMjUxNWU7XHJcblxyXG4vKi8gR29hbEtlZXBlciAvKi9cclxuXHJcbiRjb2xvckdLOiAjMzY0ZmM3O1xyXG5cclxuLyovIFZpZGVvcyBUYWdzIC8qL1xyXG5cclxuJGNvbG9yR29hbDogIzAwODFmYztcclxuJGNvbG9yU2F2ZTogIzAwMmQ2NDtcclxuJGNvbG9yU2F2ZVJlZmxleDogIzJiOGEzZTtcclxuJGNvbG9yUmVkQ2FyZDogI2RiMzIzMjtcclxuJGNvbG9yWWVsbG93Q2FyZDogI2ZhYWYwMztcclxuJGNvbG9yQ2FyZDogIzM2NGZjNztcclxuJGNvbG9yQXNzaXQ6ICM4OGIyYWQ7XHJcbiRjb2xvckNvbmNlZGVkR29hbDogI2MyMjU1YztcclxuJGNvbG9yRGVmZW5zaXZlRHVlbDogIzEwOThhZDtcclxuJGNvbG9yUGVuYWx0eUNvbmNlZGVkR29hbDogI2U4NTkwYztcclxuJGNvbG9yUGVuYWx0eUZvdWw6ICNkYjMyMzI7XHJcbiRjb2xvclBlbmFsdHlHb2FsOiAjNDc2ZTlmO1xyXG4kY29sb3JQZW5hbHR5U2F2ZTogIzM3YjI0ZDtcclxuJGNvbG9yU2hvdEFnYWluc3Q6ICM4MmM5MWU7XHJcbiRjb2xvclBhc3M6ICM3OTUwZjI7XHJcbiRjb2xvclNob3Q6ICNiMTk3ZmM7XHJcblxyXG4vKi8vLy8vLy8vLy8gTWVhc3VyZW1lbnRzIC8vLy8vLy8vLy8qL1xyXG5cclxuJGNvbnRhaW5lcldpZHRoUzogMTAwJTtcclxuJGNvbnRhaW5lcldpZHRoTTogNjMycHg7XHJcbiRjb250YWluZXJXaWR0aEw6IDEyMzJweDtcclxuXHJcbiRjb250YWluZXJHdXR0ZXI6IDFyZW07XHJcblxyXG4vKi8vLy8vLy8vLy8gTWVkaWEgUXVlcmllcyAvLy8vLy8vLy8vKi9cclxuLyogTWVkaWEgcXVlcmllcyBzaG91bGQgYWx3YXlzIGJlIHVzZWQgd2l0aCBtYXgtd2lkdGguICovXHJcblxyXG4kbWVkaWFxdWVyeVhTOiA2MDBweDtcclxuJG1lZGlhcXVlcnlTOiA3NjdweDtcclxuJG1lZGlhcXVlcnlNOiA5OTFweDtcclxuJG1lZGlhcXVlcnlMOiAxMTk5cHg7XHJcbiRtZWRpYXF1ZXJ5WEw6IDE0NDBweDtcclxuIiwiQGltcG9ydCAndmFyaWFibGVzJztcclxuXHJcblxyXG5cclxuOmhvc3QgOjpuZy1kZWVwIC5wLWRhdGF0YWJsZSAucC1kYXRhdGFibGUtdGJvZHkgPiB0ciA+IHRke1xyXG4gIHBhZGRpbmc6IC4zcmVtIDA7XHJcbn1cclxuXHJcbjpob3N0IDo6bmctZGVlcCAucC1kYXRhdGFibGUgLnAtZGF0YXRhYmxlLXRoZWFkID4gdHIgPiB0aHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgcGFkZGluZzogLjNyZW0gLjVyZW07XHJcbn1cclxuXHJcbi5zdGF0RGV0YWlsQm94e1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDFuKXtcclxuICB3aWR0aDogMzAlO1xyXG59XHJcbi5oZWFkTWF0Y2hlc0JveDpudGgtb2YtdHlwZSgybil7XHJcbiAgd2lkdGg6IDE0JTtcclxufVxyXG4uaGVhZE1hdGNoZXNCb3g6bnRoLW9mLXR5cGUoM24pe1xyXG4gIHdpZHRoOiAxNCU7XHJcbn1cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDRuKXtcclxuICB3aWR0aDogMTQlO1xyXG59XHJcbi5oZWFkTWF0Y2hlc0JveDpudGgtb2YtdHlwZSg1bil7XHJcbiAgd2lkdGg6IDE0JTtcclxufVxyXG4uaGVhZE1hdGNoZXNCb3g6bnRoLW9mLXR5cGUoNm4pe1xyXG4gIHdpZHRoOiAxNCU7XHJcbn1cclxuLmhlYWRNYXRjaGVzQm94Om50aC1vZi10eXBlKDduKXtcclxuICB3aWR0aDogMTQlO1xyXG59XHJcblxyXG4ubWF0Y2hlc0JveHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0OyBcclxuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7IFxyXG4gIHdpZHRoOiBtYXgtY29udGVudDtcclxuICBtaW4td2lkdGg6IDEwMCU7XHJcbiAgc3BhbntcclxuICAgIHBhZGRpbmc6IDAgLjNyZW07XHJcbiAgfVxyXG4gIC5kYXRlTWF0Y2h7XHJcbiAgICBmb250LXNpemU6IC43cmVtO1xyXG4gIH1cclxuICAuc2NvcmVIb21lQm94e1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIH1cclxuICAuc2NvcmVBd2F5Qm94e1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIH1cclxufVxyXG5cclxuLnNlY3Rpb25Ub3RhbFN0YXRzQm94e1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICBmbGV4LXdyYXA6IHdyYXA7XHJcbiAgbWFyZ2luLXRvcDogMnJlbTtcclxuICAuY29udGVuU3RhdEJveHsgXHJcbiAgICB3aWR0aDogNTAlO1xyXG4gICAgLmNvbnRlblN0YXRCb3hCb3JkZXJze1xyXG4gICAgICBtYXJnaW46IC41cmVtO1xyXG4gICAgICBib3JkZXItcmFkaXVzOiAuNXJlbTtcclxuICAgICAgYm9yZGVyOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgICAgLnN0YXRzVGl0bGV7XHJcbiAgICAgICAgcGFkZGluZzogMTVweCAxMHB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMXJlbTtcclxuICAgICAgICBmb250LXdlaWdodDogNjAwO1xyXG4gICAgICB9XHJcbiAgICAgIC5zdGF0c0RldGFpbHtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAganVzdGlmeS1jb250ZW50OiBzcGFjZS1iZXR3ZWVuO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgIHBhZGRpbmc6IDE1cHggMTBweDtcclxuICAgICAgICBib3JkZXItdG9wOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgICAgICBmb250LXNpemU6IC45cmVtO1xyXG4gICAgICAgIHNwYW57XHJcbiAgICAgICAgICBmb250LXdlaWdodDogNjAwO1xyXG4gICAgICAgIH1cclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuLnNlY3Rpb25TZWxlY3RTZWFzb257XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0O1xyXG4gIG1hcmdpbi10b3A6IDFyZW07IFxyXG4gIGRpdntcclxuICAgIHdpZHRoOiAyMDBweDtcclxuICAgIFxyXG4gICAgbGFiZWx7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgICBtYXJnaW4tYm90dG9tOiAuM3JlbTtcclxuICAgICAgZm9udC1zaXplOiAuOHJlbTtcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbi5nZW5lcmFsU3RhdHN7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxuICBkaXZ7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICB3aWR0aDogZml0LWNvbnRlbnQ7XHJcbiAgICBwYWRkaW5nOiAuNXJlbSAxcmVtO1xyXG4gICAgYm9yZGVyOiAxcHggc29saWQgI2U4ZThlODtcclxuICAgIGxhYmVse1xyXG4gICAgICBmb250LXNpemU6IDEuMnJlbTtcclxuICAgICAgc3Vwe1xyXG4gICAgICAgIGZvbnQtc2l6ZTogLjdyZW07XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIHNwYW57XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICBmb250LXNpemU6IDIuNHJlbTtcclxuICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuXHJcblxyXG5wIHtcclxuICBtYXJnaW46IDA7XHJcbn1cclxuXHJcbi5zZWN0aW9uTWF0Y2hTdGF0c0JveCB7XHJcbiAgLnNlbGVjdEdyb3VwTWF0Y2hTdGF0c3tcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtc3RhcnQ7XHJcbiAgICBwYWRkaW5nOiAxcmVtO1xyXG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNlOGU4ZTg7XHJcbiAgfVxyXG4gIC50YWJsZV9oZWFkZXIge1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgIEBtZWRpYSBzY3JlZW4gYW5kIChtYXgtd2lkdGg6ICRtZWRpYXF1ZXJ5TSkge1xyXG4gICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uLXJldmVyc2U7XHJcbiAgICAgIGFsaWduLWl0ZW1zOiBmbGV4LXN0YXJ0O1xyXG4gICAgfVxyXG4gICAgLmJhc2VfdGl0bGUge1xyXG4gICAgICBjb2xvcjogJGNvbG9yTWFpbkJsdWVfY3RhO1xyXG4gICAgICBAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAkbWVkaWFxdWVyeU0pIHtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xyXG4gICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgLmJ1dHRvbnNfdGFibGUge1xyXG4gICAgICBAbWVkaWEgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiAkbWVkaWFxdWVyeVMpIHtcclxuICAgICAgICBkaXNwbGF5OiBub25lO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgICAuZHJvcF90YWJsZSB7XHJcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLmZpcnN0X2NvbHVtbiB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIC5iYXNlX3RleHQge1xyXG4gICAgICBmb250LXNpemU6IDAuOXJlbTtcclxuICAgICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgIH1cclxuICAgIC50ZWFtc19kYXRhIHtcclxuICAgICAgLnRlYW1faXRlbSB7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgICAgICY6bGFzdC1jaGlsZCB7XHJcbiAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwcHg7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIC5yZXN1bHQge1xyXG4gICAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgICAgbWluLXdpZHRoOiAzMHB4O1xyXG4gICAgICAgICAgLnNjb3JlX3Jlc3VsdCB7XHJcbiAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgICAgICAudGVhbV9uYW1lIHtcclxuICAgICAgICAgIGNvbG9yOiAkY29sb3JNYWluQmx1ZTtcclxuICAgICAgICB9XHJcbiAgICAgICAgLnRlYW1faW1nIHtcclxuICAgICAgICAgIG1hcmdpbi1sZWZ0OiA1cHg7XHJcbiAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbjpob3N0IDo6bmctZGVlcCAucC1kYXRhdGFibGUtdGhlYWQge1xyXG4gIHRyIHtcclxuICAgIHRoIHtcclxuICAgICAgJjpmaXJzdC1jaGlsZCB7XHJcbiAgICAgICAgYm9yZGVyLXJpZ2h0OiAycHggc29saWQgIzIxOTZmMztcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG5cclxuOmhvc3QgOjpuZy1kZWVwIC5wLWRhdGF0YWJsZS10Ym9keSB7XHJcbiAgdHIge1xyXG4gICAgdGQge1xyXG4gICAgICAmOm50aC1jaGlsZCgzKSB7XHJcbiAgICAgICAgYm9yZGVyLXJpZ2h0OiAycHggc29saWQgIzIxOTZmMztcclxuICAgICAgfVxyXG4gICAgfVxyXG4gIH1cclxufVxyXG4uc3R5bGVUYWJsZXtcclxuICB0YWJsZSB7XHJcbiAgICBcclxuICAgIC5wLWRhdGF0YWJsZS10Ym9keSB7XHJcbiAgICAgIHRyIHtcclxuICAgICAgICB0ZCB7XHJcbiAgICAgICAgICAmOmZpcnN0LWNoaWxkIHtcclxuICAgICAgICAgICAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgIzIxOTZmMztcclxuICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbiJdfQ== */"] });
 
 
 /***/ }),
@@ -9501,16 +9556,6 @@ __webpack_require__.r(__webpack_exports__);
 // Pipes
 
 
-
-/***/ }),
-
-/***/ 5159:
-/*!*********************************************************************!*\
-  !*** ./projects/aft-core/src/lib/services/mocks/advance-stats.json ***!
-  \*********************************************************************/
-/***/ ((module) => {
-
-module.exports = JSON.parse('{"attacks":{"3166":{"corners":7,"cornersWithShot":1,"counterAttacks":2,"freeKicks":3,"freeKicksWithShot":2,"positionalAttack":32,"positionalWithShots":11,"total":47,"withShots":17},"3185":{"corners":3,"cornersWithShot":0,"counterAttacks":8,"freeKicks":4,"freeKicksWithShot":3,"positionalAttack":23,"positionalWithShots":6,"total":39,"withShots":12}},"defence":{"3166":{"clearances":13,"interceptions":29,"ppda":11.2,"tackles":7},"3185":{"clearances":13,"interceptions":47,"ppda":9.8,"tackles":1}},"duels":{"3166":{"aerialDuels":31,"aerialDuelsSuccessful":13,"challengeIntensity":6.9,"defensiveDuels":73,"defensiveDuelsSuccessful":37,"dribbles":37,"dribblesSuccessful":26,"duels":232,"duelsSuccessful":115,"groundDuels":158,"groundDuelsSuccessful":81,"looseBallDuels":43,"looseBallDuelsSuccessful":21,"offensiveDuels":85,"offensiveDuelsSuccessful":44},"3185":{"aerialDuels":31,"aerialDuelsSuccessful":18,"challengeIntensity":7,"defensiveDuels":85,"defensiveDuelsSuccessful":41,"dribbles":40,"dribblesSuccessful":22,"duels":232,"duelsSuccessful":113,"groundDuels":158,"groundDuelsSuccessful":77,"looseBallDuels":43,"looseBallDuelsSuccessful":18,"offensiveDuels":73,"offensiveDuelsSuccessful":36}},"flanks":{"3166":{"centerAttacks":15,"centerXg":0.309,"leftFlankAttacks":19,"leftFlankXg":0.607,"rightFlankAttacks":13,"rightFlankXg":0.174},"3185":{"centerAttacks":18,"centerXg":0.636,"leftFlankAttacks":7,"leftFlankXg":0.161,"rightFlankAttacks":14,"rightFlankXg":0.156}},"general":{"3166":{"avgDistance":20.9,"corners":7,"dribbles":37,"fouls":15,"foulsSuffered":16,"freeKicks":3,"goals":1,"leftThrowIns":5,"offsides":1,"progressiveRuns":25,"redCards":0,"rightThrowIns":16,"shots":20,"shotsBlocked":5,"shotsFromBox":9,"shotsFromBoxOnTarget":3,"shotsFromDangerZone":2,"shotsOnPost":0,"shotsOnTarget":5,"shotsOutsideBox":11,"shotsOutsideBoxOnTarget":2,"shotsWide":10,"totalThrowIns":21,"touchesInBox":20,"xg":1.0916,"xgPerShot":0.055,"yellowCards":3},"3185":{"avgDistance":20.2,"corners":3,"dribbles":40,"fouls":17,"foulsSuffered":15,"freeKicks":4,"goals":1,"leftThrowIns":7,"offsides":1,"progressiveRuns":15,"redCards":0,"rightThrowIns":11,"shots":14,"shotsBlocked":4,"shotsFromBox":7,"shotsFromBoxOnTarget":6,"shotsFromDangerZone":4,"shotsOnPost":0,"shotsOnTarget":9,"shotsOutsideBox":7,"shotsOutsideBoxOnTarget":3,"shotsWide":1,"totalThrowIns":18,"touchesInBox":16,"xg":0.954,"xgPerShot":0.068,"yellowCards":3}},"match":{"competitionId":524,"date":"August 2, 2020 at 8:45:00 PM GMT+2","dateutc":"2020-08-02 18:45:00","duration":"Regular","gameweek":38,"gsmId":-178889,"hasDataAvailable":true,"label":"Bologna - Torino, 1 - 1","referees":[{"refereeId":396653,"role":"referee"},{"refereeId":394731,"role":"firstAssistant"},{"refereeId":458270,"role":"secondAssistant"},{"refereeId":377271,"role":"fourthOfficial"},{"refereeId":0,"role":"firstAdditionalAssistant"},{"refereeId":0,"role":"secondAdditionalAssistant"}],"roundId":4420465,"seasonId":185844,"status":"Played","teamsData":{"3166":{"coachId":210120,"formation":{"bench":[{"assists":"0","goals":"0","ownGoals":"0","playerId":20604,"redCards":"0","shirtNumber":1,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":366296,"redCards":"0","shirtNumber":97,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":373768,"redCards":"0","shirtNumber":7,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":20529,"redCards":"0","shirtNumber":16,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":536800,"redCards":"0","shirtNumber":29,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":532549,"redCards":"0","shirtNumber":6,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":496671,"redCards":"0","shirtNumber":25,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":22578,"redCards":"0","shirtNumber":10,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":86316,"redCards":"0","shirtNumber":9,"yellowCards":"74"},{"assists":"0","goals":"0","ownGoals":"0","playerId":476177,"redCards":"0","shirtNumber":34,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":512740,"redCards":"0","shirtNumber":17,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":496214,"redCards":"0","shirtNumber":8,"yellowCards":"0"}],"lineup":[{"assists":"0","goals":"0","ownGoals":"0","playerId":21296,"redCards":"0","shirtNumber":24,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":491409,"redCards":"0","shirtNumber":99,"yellowCards":"0"},{"assists":"0","goals":"1","ownGoals":"0","playerId":347525,"redCards":"0","shirtNumber":32,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":439889,"redCards":"0","shirtNumber":30,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":556015,"redCards":"0","shirtNumber":26,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":3473,"redCards":"0","shirtNumber":5,"yellowCards":"83"},{"assists":"0","goals":"0","ownGoals":"0","playerId":20583,"redCards":"0","shirtNumber":23,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":22377,"redCards":"0","shirtNumber":15,"yellowCards":"0"},{"assists":"1","goals":"0","ownGoals":"0","playerId":20623,"redCards":"0","shirtNumber":21,"yellowCards":"78"},{"assists":"0","goals":"0","ownGoals":"0","playerId":99430,"redCards":"0","shirtNumber":28,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":39,"redCards":"0","shirtNumber":4,"yellowCards":"0"}],"substitutions":[{"assists":"0","minute":48,"playerIn":22578,"playerOut":21296},{"assists":"0","minute":48,"playerIn":86316,"playerOut":491409},{"assists":"0","minute":71,"playerIn":476177,"playerOut":347525},{"assists":"0","minute":71,"playerIn":496214,"playerOut":439889},{"assists":"0","minute":76,"playerIn":512740,"playerOut":556015}]},"hasFormation":1,"score":1,"scoreET":0,"scoreHT":1,"scoreP":0,"side":"home","teamId":3166},"3185":{"coachId":400257,"formation":{"bench":[{"assists":"0","goals":"0","ownGoals":"0","playerId":25421,"redCards":"0","shirtNumber":39,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":481140,"redCards":"0","shirtNumber":45,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":501457,"redCards":"0","shirtNumber":27,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":545358,"redCards":"0","shirtNumber":44,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":551857,"redCards":"0","shirtNumber":56,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":21547,"redCards":"0","shirtNumber":18,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":536792,"redCards":"0","shirtNumber":19,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":562846,"redCards":"0","shirtNumber":80,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":354552,"redCards":"0","shirtNumber":20,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":240378,"redCards":"0","shirtNumber":34,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":25558,"redCards":"0","shirtNumber":33,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":626316,"redCards":"0","shirtNumber":77,"yellowCards":"0"}],"lineup":[{"assists":"0","goals":"0","ownGoals":"0","playerId":101742,"redCards":"0","shirtNumber":15,"yellowCards":"47"},{"assists":"0","goals":"0","ownGoals":"0","playerId":22883,"redCards":"0","shirtNumber":5,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":475319,"redCards":"0","shirtNumber":36,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":237269,"redCards":"0","shirtNumber":7,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":21158,"redCards":"0","shirtNumber":25,"yellowCards":"0"},{"assists":"0","goals":"1","ownGoals":"0","playerId":22202,"redCards":"0","shirtNumber":11,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":21234,"redCards":"0","shirtNumber":9,"yellowCards":"0"},{"assists":"1","goals":"0","ownGoals":"0","playerId":21123,"redCards":"0","shirtNumber":24,"yellowCards":"0"},{"assists":"0","goals":"0","ownGoals":"0","playerId":339791,"redCards":"0","shirtNumber":21,"yellowCards":"60"},{"assists":"0","goals":"0","ownGoals":"0","playerId":14903,"redCards":"0","shirtNumber":88,"yellowCards":"56"},{"assists":"0","goals":"0","ownGoals":"0","playerId":25523,"redCards":"0","shirtNumber":30,"yellowCards":"0"}],"substitutions":[{"assists":"0","minute":50,"playerIn":240378,"playerOut":101742},{"assists":"0","minute":76,"playerIn":25558,"playerOut":22883},{"assists":"0","minute":92,"playerIn":626316,"playerOut":25523}]},"hasFormation":1,"score":1,"scoreET":0,"scoreHT":0,"scoreP":0,"side":"away","teamId":3185}},"winner":0,"wyId":2852835},"matchId":2852835,"openPlay":{"3166":{"long":16,"medium":28,"short":35,"total":81,"veryLong":2},"3185":{"long":20,"medium":18,"short":35,"total":73,"veryLong":0}},"passes":{"3166":{"assists":1,"avgPassLength":19.5,"avgPassToFinalThirdLength":28.5,"backPasses":59,"backPassesSuccessful":57,"crossesBlocked":5,"crossesFromLeftFlank":3,"crossesFromLeftFlankSuccessful":0,"crossesFromRightFlank":8,"crossesFromRightFlankSuccessful":0,"crossesHigh":5,"crossesLow":1,"crossesSuccessful":0,"crossesTotal":11,"deepCompletedPasses":12,"deepCompletedPassesSuccessful":7,"forwardPasses":152,"forwardPassesSuccessful":125,"keyPasses":3,"keyPassesSuccessful":3,"lateralPasses":150,"lateralPassesSuccessful":133,"longPasses":38,"longPassesSuccessful":26,"matchTempo":17.6,"passToFinalThirds":49,"passToFinalThirdsSuccessful":42,"passToPenaltyAreas":21,"passToPenaltyAreasSuccessful":8,"passes":440,"passesSuccessful":379,"progressivePasses":55,"progressivePassesSuccessful":43,"shortMediumPasses":396,"shortMediumPassesSuccessful":357,"shotAssists":12,"smartPasses":2,"smartPassesSuccessful":0,"throughPasses":4,"throughPassesSuccessful":2,"verticalPasses":150,"verticalPassesSuccessful":133},"3185":{"assists":1,"avgPassLength":20.5,"avgPassToFinalThirdLength":33.9,"backPasses":31,"backPassesSuccessful":29,"crossesBlocked":1,"crossesFromLeftFlank":8,"crossesFromLeftFlankSuccessful":3,"crossesFromRightFlank":7,"crossesFromRightFlankSuccessful":2,"crossesHigh":7,"crossesLow":7,"crossesSuccessful":5,"crossesTotal":15,"deepCompletedPasses":11,"deepCompletedPassesSuccessful":11,"forwardPasses":115,"forwardPassesSuccessful":91,"keyPasses":6,"keyPassesSuccessful":6,"lateralPasses":116,"lateralPassesSuccessful":98,"longPasses":38,"longPassesSuccessful":24,"matchTempo":14.8,"passToFinalThirds":39,"passToFinalThirdsSuccessful":28,"passToPenaltyAreas":23,"passToPenaltyAreasSuccessful":13,"passes":326,"passesSuccessful":278,"progressivePasses":68,"progressivePassesSuccessful":54,"shortMediumPasses":277,"shortMediumPassesSuccessful":252,"shotAssists":9,"smartPasses":9,"smartPassesSuccessful":4,"throughPasses":10,"throughPassesSuccessful":5,"verticalPasses":116,"verticalPassesSuccessful":98}},"possession":{"3166":{"avgPossessionDuration":"00:14","minutesOfPossession1-15":"04:07","minutesOfPossession106-120":"00:00","minutesOfPossession16-30":"03:30","minutesOfPossession31-45":"04:10","minutesOfPossession46-60":"04:56","minutesOfPossession61-75":"03:45","minutesOfPossession76-90":"05:13","minutesOfPossession91-105":"00:00","possession1-15":55,"possession106-120":0,"possession16-30":61,"possession31-45":42,"possession46-60":53,"possession61-75":61,"possession76-90":56,"possession91-105":0,"possessionNumber":108,"possessionPercent":54,"purePossessionTime":"25:44","reachingOpponentBox":16,"reachingOpponentHalf":62},"3185":{"avgPossessionDuration":"00:12","minutesOfPossession1-15":"03:19","minutesOfPossession106-120":"00:00","minutesOfPossession16-30":"02:14","minutesOfPossession31-45":"05:49","minutesOfPossession46-60":"04:26","minutesOfPossession61-75":"02:24","minutesOfPossession76-90":"04:03","minutesOfPossession91-105":"00:00","possession1-15":45,"possession106-120":0,"possession16-30":39,"possession31-45":58,"possession46-60":47,"possession61-75":39,"possession76-90":44,"possession91-105":0,"possessionNumber":103,"possessionPercent":46,"purePossessionTime":"22:17","reachingOpponentBox":12,"reachingOpponentHalf":60},"deadTime":"49:59","totalTime":"98:00"},"teams":{"3166":{"team":{"area":{"alpha2code":"IT","alpha3code":"ITA","id":380,"name":"Italy"},"category":"default","children":[{"name":"Bologna FC 1909 U13","wyId":66245},{"name":"Bologna U14","wyId":65383},{"name":"Bologna U16 A&B","wyId":60870},{"name":"Bologna U15","wyId":23946},{"name":"Bologna U17 A&B","wyId":23838},{"name":"Bologna U19","wyId":3716},{"name":"Bologna U18","wyId":30269},{"name":"Bologna U20","wyId":34251}],"city":"Bologna","gender":"male","gsmId":1249,"name":"Bologna","officialName":"Bologna FC 1909","type":"club","wyId":3166},"teamId":3166},"3185":{"team":{"area":{"alpha2code":"IT","alpha3code":"ITA","id":380,"name":"Italy"},"category":"default","children":[{"name":"Torino U14","wyId":65179},{"name":"Torino U18","wyId":62760},{"name":"Torino U16 A&B","wyId":34380},{"name":"Torino U15 A&B","wyId":21673},{"name":"Torino U17 A&B","wyId":20594},{"name":"Torino U19","wyId":3713},{"name":"Torino U19 Berretti","wyId":24050}],"city":"Torino","gender":"male","gsmId":1268,"name":"Torino","officialName":"Torino FC","type":"club","wyId":3185},"teamId":3185}},"transitions":{"3166":{"lossesHigh":35,"lossesLow":13,"lossesMedium":31,"lossesTotal":79,"opponentHalfRecoveries":21,"ownHalfLosses":26,"recoveriesHigh":11,"recoveriesLow":29,"recoveriesMedium":31,"recoveriesTotal":71},"3185":{"lossesHigh":35,"lossesLow":21,"lossesMedium":24,"lossesTotal":80,"opponentHalfRecoveries":16,"ownHalfLosses":31,"recoveriesHigh":10,"recoveriesLow":28,"recoveriesMedium":21,"recoveriesTotal":59}}}');
 
 /***/ })
 
